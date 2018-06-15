@@ -1,0 +1,32 @@
+package com.intprep;
+
+public class SortSelection 
+{
+	public static int[] sort (int[] input)	{
+		for (int i = 0; i < input.length-1; i++)	{
+			int min = input[i];
+			for (int j = i+1; j < input.length; j++)	{
+				if (min > input[j])	{
+					input[i] = input[j];
+					input[j] = min;
+					min = input[i];
+				}
+				printArray("sort", input);	
+			}
+		}
+		return input;
+	}
+	
+	public static void printArray (String s, int[] arr) {
+		System.out.print(s+":");
+		for (int i : arr)
+			System.out.print(" "+i);
+		System.out.println ();
+	}
+	
+	public static void main (String[] args)	{
+		int[] input = new int[] { 31, 3, 42, -5, 8, 6, 1, 49, 888, 91};
+		printArray("input", input);
+		printArray("output", sort(input));
+	}
+}

@@ -1,0 +1,21 @@
+package com.intprep;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+public class ListManipulation 
+{
+	public static ListNode<Integer> removeDups (ListNode<Integer> list){
+		Set<Integer> unique = new HashSet<Integer> ();
+		ListNode<Integer> newList = new ListNode<Integer> (list.getValue());
+		ListNode<Integer> runner = newList;
+		while (true) {
+			if (!unique.contains(list.getValue()))	{
+				runner.setNext(new ListNode<Integer> ())
+			}
+		}
+		
+	}
+}
+

@@ -1,0 +1,36 @@
+package com.intprep;
+
+public class ListNode<T> 
+{
+	T value = null;
+	ListNode<T> next = null;
+	
+	public ListNode (T v, ListNode<T> n) {
+		value = v;
+		next = n;
+	}
+	
+	public ListNode (T v){
+		this (v, null);
+	}
+	
+	public T getValue () { return value; }
+	public ListNode<T> getNext () { return next; }
+	public ListNode<T> setNext (ListNode<T> n) { 
+		ListNode<T> n1 = next;
+		next = n;
+		return n1;
+	}
+	
+	public ListNode<T> createList (T[] items){
+		if (items == null || items.length == 0)
+			return null;
+		ListNode<T> list = new ListNode<T> (items[0]);
+		ListNode<T> current = list;
+		for (int i = 1; i < items.length; i++)	{
+			current.setNext(new ListNode<T> (items[i]));
+			current = current.getNext();
+		}
+		return list; 
+	}	
+}

@@ -1,0 +1,62 @@
+package com.intprep;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+public class ListManipulation 
+{
+	public static ListNode<Integer> removeDups (ListNode<Integer> list){
+		Set<Integer> uniqueSet = new HashSet<Integer> ();
+		Integer val = list.getValue();
+		ListNode<Integer> next = list.getNext();
+		uniqueSet.add(val);
+		ListNode<Integer> uniqueList = new ListNode<Integer> (val);
+		ListNode<Integer> runner = uniqueList;
+		while (next != null)	{
+			val = next.getValue();
+			if (!uniqueSet.contains(val))	{
+				runner.setNext(new ListNode<Integer>(val));
+				uniqueSet.add(val);
+				runner = runner.getNext();
+			}
+			next = next.getNext();
+		}
+		return uniqueList;
+	}
+	
+	public static ListNode<Integer> reverse (ListNode<Integer> list){
+		return null;
+	}
+	
+	public static ListNode<Integer> createList (int[] items)	{
+		if (items == null || items.length == 0)
+			return null;
+		ListNode<Integer> list = new ListNode<Integer> (items[0]);
+		ListNode<Integer> current = list;
+		for (int i = 1; i < items.length; i++) {
+			current.setNext(new ListNode<Integer> (items[i]));
+			current = current.getNext();
+		}
+		return list;
+	}
+	
+	public static void printList(String tag, ListNode<Integer> list)	{
+		System.out.print(tag+": "+list.getValue());
+		while (list.getNext() != null)	{
+			System.out.print(" => "+list.getNext().getValue());
+			list = list.getNext();
+		}
+		System.out.println();
+	}
+	
+	public static void main (String[] args)	{
+		ListNode<Integer> origList = createList(new int[] {3,3,5,6,9,9,13,21,23,54,67,89,89,98});
+		printList("Original", origList);
+		// ListNode<Integer> list2 = removeDups (origList);
+		// printList("Unique", list2);
+		ListNode<Integer> list2 = reverse (origList);
+		printList("Reverse", list2);
+	}
+}
+
