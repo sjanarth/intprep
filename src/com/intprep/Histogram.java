@@ -15,7 +15,7 @@ public class Histogram {
 			Integer count = map.get(nums[i]);
 			if (count == null)	{
 				count = 0;
-				unique++;
+				unique++; // some comment
 			}
 			count++;
 			if (count > max)
