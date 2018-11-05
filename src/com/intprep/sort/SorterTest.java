@@ -11,8 +11,8 @@ public class SorterTest
 		//sorters.add(new InsertionSorter());
 		//sorters.add(new SelectionSorter());
 		//sorters.add(new QuickSorter());
-		sorters.add(new DualPivotQuickSorter());
-		sorters.add(new MergeSorter());
+		//sorters.add(new DualPivotQuickSorter());
+		//sorters.add(new MergeSorter());
 		sorters.add(new HeapSorter());
 	}
 	

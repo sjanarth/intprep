@@ -15,7 +15,7 @@ public abstract class AbstractSorter
 
 	protected abstract int[] sort (int[] input);
 	
-	private int[] initRandomArray (int size) {
+	protected int[] initRandomArray (int size) {
 		int[] arr = new int[size];
 		for (int i = 0; i < size; i++)	{
 			arr[i] = (int) (Math.random() * 1000); 
