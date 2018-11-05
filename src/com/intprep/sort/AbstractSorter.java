@@ -9,7 +9,7 @@ public abstract class AbstractSorter
 		int[] output = sort(input);
 		long end = System.nanoTime();
 		printArray("Output", output);
-		System.out.println(this.getClass().getSimpleName()+" Runtime: "+(end-start));
+		System.out.println(this.getClass().getSimpleName()+" Runtime: "+(end-start)+"ns");
 		System.out.println();
 	}
 
@@ -24,7 +24,6 @@ public abstract class AbstractSorter
 	}
 	
 	protected void debug (int[] input, int i)	{
-		/*
 		System.out.print("(");
 		for (int j = 0; j <= i; j++)	{
 			System.out.print(" "+input[j]);
@@ -34,7 +33,6 @@ public abstract class AbstractSorter
 			System.out.print(" "+input[j]);
 		}
 		System.out.println(" )");
-		*/
 	}
 	
 	protected void printArray (String s, int[] arr) {

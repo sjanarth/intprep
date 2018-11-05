@@ -2,6 +2,7 @@ package com.intprep.sort;
 
 public class InsertionSorter extends AbstractSorter 
 {
+	@Override
 	public int[] sort (int[] input)	{
 		for (int i = 1; i < input.length; i++)	{
 			int k = input[i];
@@ -11,7 +12,7 @@ public class InsertionSorter extends AbstractSorter
 				j--;
 			}
 			input[j+1] = k;
-			debug (input, i);	
+			debug (input, i-1);	
 		}
 		return input;
 	}

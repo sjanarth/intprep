@@ -4,10 +4,11 @@ public class QuickSorter extends AbstractSorter
 {
 	private int partition (int[] input, int left, int right)	{
 		int i = left, j = right;
-		int pivot = input[(left+right)/2];
+		int pivotind = (left+right)/2;
+		int pivotval = input[pivotind];
 		while (i <= j)	{
-			while (input[i] < pivot) i++;
-			while (input[j] > pivot) j--;
+			while (input[i] < pivotval) i++;
+			while (input[j] > pivotval) j--;
 			if (i <= j)	{
 				int temp = input[i];
 				input[i] = input[j];
@@ -27,6 +28,7 @@ public class QuickSorter extends AbstractSorter
 			quickSort(input, index, right);
 	}
 	
+	@Override
 	public int[] sort (int[] input)	{
 		quickSort (input, 0, input.length-1);
 		return input;
