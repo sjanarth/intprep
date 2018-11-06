@@ -2,6 +2,20 @@ package com.intprep.sort;
 
 public class QuickSorter extends AbstractSorter
 {
+	@Override
+	public int[] sort (int[] input)	{
+		quickSort (input, 0, input.length-1);
+		return input;
+	}
+	
+	private void quickSort (int[] input, int left, int right)	{
+		int index = partition (input, left, right);
+		if (left < index - 1)
+			quickSort(input, left, index-1);
+		if (index < right)
+			quickSort(input, index, right);
+	}
+	
 	private int partition (int[] input, int left, int right)	{
 		int i = left, j = right;
 		int pivotind = (left+right)/2;
@@ -18,19 +32,5 @@ public class QuickSorter extends AbstractSorter
 			}
 		}
 		return i;
-	}
-	
-	private void quickSort (int[] input, int left, int right)	{
-		int index = partition (input, left, right);
-		if (left < index - 1)
-			quickSort(input, left, index-1);
-		if (index < right)
-			quickSort(input, index, right);
-	}
-	
-	@Override
-	public int[] sort (int[] input)	{
-		quickSort (input, 0, input.length-1);
-		return input;
-	}
+	}	
 }
