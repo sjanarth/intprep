@@ -8,6 +8,7 @@ public class SorterTest
 {
 	private static List<AbstractSorter> sorters = new ArrayList<AbstractSorter> ();
 	static {
+		sorters.add(new ArraysSorter());
 		sorters.add(new BubbleSorter());
 		sorters.add(new InsertionSorter());
 		sorters.add(new SelectionSorter());
