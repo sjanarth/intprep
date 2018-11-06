@@ -15,20 +15,23 @@ public class SorterTest
 		//sorters.add(new DualPivotQuickSorter());
 		sorters.add(new MergeSorter());
 		sorters.add(new HeapSorter());
+		//sorters.add(new HeapSorter2());
 	}
 	
 	protected static int[] initRandomArray (int size) {
+		//int[] arr = new int[] {415,389,713,449,874,640,294,528,691,830};
 		int[] arr = new int[size];
 		for (int i = 0; i < size; i++)	{
-			arr[i] = (int) (Math.random() * 1000); 
+			arr[i] = (int) (Math.random() * size * 100); 
 		}
 		return arr;
 	}
 	
 	public static void main(String[] args) {
-		int[] original = initRandomArray (10);
+		final int SIZE = 10000;
+		int[] original = initRandomArray (SIZE);
 		for (AbstractSorter sorter : sorters)	{
-			int[] input = Arrays.copyOf(original, 10);
+			int[] input = Arrays.copyOf(original, SIZE);
 			sorter.sortMain(input);
 		}
 	}
