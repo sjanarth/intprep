@@ -80,6 +80,5 @@ public class KWayMerge
 		System.out.print("Merged: ");
 		for (int i : output)
 			System.out.print(" "+i);
-		System.out.println ();
 	}
 }
