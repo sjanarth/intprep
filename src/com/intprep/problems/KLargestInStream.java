@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class KLargesInStream 
+public class KLargestInStream 
 {
 	private static int[] topK(int[] arr, int k)	{
 		Set<Integer> set = new TreeSet<Integer>(Collections.reverseOrder());
