@@ -1,6 +1,6 @@
 package com.intprep.recursion;
 
-public class StringPermutations 
+public class Permutations 
 {
 	private static void swap (char[] chars, int i, int j)	{
 		char t = chars[i];
