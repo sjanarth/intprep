@@ -1,4 +1,4 @@
-package com.intprep.real;
+package com.intprep.realqs;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
