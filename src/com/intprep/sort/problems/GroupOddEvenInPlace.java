@@ -1,4 +1,4 @@
-package com.intprep.problems;
+package com.intprep.sort.problems;
 
 public class GroupOddEvenInPlace 
 {

@@ -1,4 +1,4 @@
-package com.intprep.problems;
+package com.intprep.sort.problems;
 
 import java.util.Collections;
 import java.util.Iterator;
