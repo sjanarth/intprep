@@ -3,7 +3,7 @@ package com.intprep.sort.problems;
 import java.util.Arrays;
 import java.util.PriorityQueue;
 
-public class KWayWith2InPlace 
+public class KWayWith2InPlace // needs review
 {
 	static int partition (int[] arr, int left, int right)	{
 		int p = (left+right)/2;
