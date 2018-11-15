@@ -1,4 +1,4 @@
-package com.intprep.recursion.problems;
+package com.intprep.recursion.problems.wip;
 
 public class PalinDecomp	// incomplete 
 {
