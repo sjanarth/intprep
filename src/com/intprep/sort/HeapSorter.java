@@ -1,7 +1,7 @@
 package com.intprep.sort;
 
-public class HeapSorter extends AbstractSorter {
-
+public class HeapSorter extends AbstractSorter 
+{
 	private void heapify (int[] input, int n, int i) {
 		int max = i;
 		int left = 2 * i + 1;
@@ -34,5 +34,4 @@ public class HeapSorter extends AbstractSorter {
 		}
 		return input;
 	}
-
 }
