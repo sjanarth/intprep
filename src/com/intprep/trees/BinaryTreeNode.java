@@ -1,130 +1,70 @@
 package com.intprep.trees;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
-public class BinaryTreeNode<T> 
+public class BinaryTreeNode<T> extends BaseTreeNode<T>
 {
 	public BinaryTreeNode (T v)	{
-		value = v;
+		super(v);
 	}
 	
 	public BinaryTreeNode (T v, BinaryTreeNode<T> l, BinaryTreeNode<T> r) {
-		this (v);
-		left = l; left.setParent(this);
-		right = r; right.setParent(this);
+		super (v);
+		addChild (l);
+		addChild (r);
 	}
 	
-	public T getValue() {
-		return value;
+	@Override
+	public void addChild (BaseTreeNode<T> child) throws UnsupportedOperationException {
+		List<BaseTreeNode<T>> children = getChildren();
+		if (children != null && children.size() > 1)
+			throw new UnsupportedOperationException ("Binary tree cannot have more than 2 children");
+		super.addChild(child);
 	}
-
-	public void setValue(T v) {
-		value = v;
+	
+	@Override
+	public void addChildren (Collection<BaseTreeNode<T>> nodes) {
+		if (nodes != null && nodes.size() > 2)
+			throw new UnsupportedOperationException ("Cannot add more than 2 children to a binary tree node");
+		for (BaseTreeNode<T> node : nodes)
+			addChild (node);
 	}
 	
 	public BinaryTreeNode<T> getLeft()	{
-		return left;
+		List<BaseTreeNode<T>> children = getChildren();
+		if (children != null && children.size() > 0)
+			return (BinaryTreeNode<T>) children.get(0);
+		return null;
 	}
 	
 	public BinaryTreeNode<T> setLeft (BinaryTreeNode<T> l){
-		BinaryTreeNode<T> oldLeft = left;
-		left = l; left.setParent(this);
+		BinaryTreeNode<T> oldLeft = getLeft();
+		addChild (l);	
 		return oldLeft;
 	}
 	
 	public BinaryTreeNode<T> getRight()	{
-		return right;
+		List<BaseTreeNode<T>> children = getChildren();
+		if (children != null && children.size() > 1)
+			return (BinaryTreeNode<T>) children.get(1);
+		return null;
 	}
 
 	public BinaryTreeNode<T> setRight (BinaryTreeNode<T> r){
-		BinaryTreeNode<T> oldRight = right;
-		right = r; right.setParent(this);
+		BinaryTreeNode<T> oldRight = getRight();
+		addChild (r);	
 		return oldRight;
 	}
 	
-	public BinaryTreeNode<T> getParent() {
-		return parent;
-	}
-
-	public BinaryTreeNode<T> setParent(BinaryTreeNode<T> p) {
-		BinaryTreeNode<T> oldParent = parent;
-		parent = p;
-		return oldParent;
-	}
-
-	public int getSize ()	{
-		return 1 + 
-			(left == null ? 0 : left.getSize()) +
-			(right == null ? 0 : right.getSize());
-	}
-	
-	public int getHeight ()	{
-		int hLeft = (left == null ? 0 : left.getHeight());
-		int hRight = (right == null ? 0 : right.getHeight());
-		int max = Math.max (hLeft, hRight);
-		return max+1;
-	}
-	
-	public BinaryTreeNode<T> findNode (T v)	{
-		if (value != null && value.equals(v))
-			return this;
-		if (left != null)	{
-			BinaryTreeNode<T> node = left.findNode(v);
-			if (node != null)
-				return node;
-		}
-		if (right != null)	{
-			BinaryTreeNode<T> node = right.findNode(v);
-			if (node != null)
-				return node;
-		}
-		return null;
-	}
-	
-	public List<BinaryTreeNode<T>> traverseBfs ()	{
-		// TODO:
-		return null;
-	}
-	
-	public List<BinaryTreeNode<T>> traverseDfs ()	{
-		// TODO:
-		return null;
-	}
-
-	public List<BinaryTreeNode<T>> traverseInOrder ()	{
-		// TODO:
-		return null;
-	}
-
-	public List<BinaryTreeNode<T>> traversePreOrder ()	{
-		// TODO:
-		return null;
-	}
-
-	public List<BinaryTreeNode<T>> traversePostOrder ()	{
-		// TODO:
-		return null;
-	}
-	
 	public boolean isBalanced ()	{
-		// TODO:
-		return false;
+		BinaryTreeNode<T> leftNode = getLeft();
+		int hLeft = leftNode != null ? leftNode.getHeight() : 0;
+		BinaryTreeNode<T> rightNode = getRight();
+		int hRight = rightNode != null ? rightNode.getHeight() : 0;
+		return Math.abs(hLeft - hRight) <= 1;
 	}
-	
-	public boolean isComplete ()	{
-		// TODO:
-		return false;
-	}
-	
-	public boolean isBST ()	{
-		// TODO:
-		return false;
-	}
-	
-	private T value = null;
-	private BinaryTreeNode<T> left = null;
-	private BinaryTreeNode<T> right = null;
-	private BinaryTreeNode<T> parent = null;
 	
 	private static BinaryTreeNode<String> buildSampleTree()	{
 		BinaryTreeNode<String> root = new BinaryTreeNode<String> ("root");
@@ -143,8 +83,8 @@ public class BinaryTreeNode<T>
 		return root;
 	}
 	
-	private static void main (String[] args) {
+	public static void main (String[] args) {
 		BinaryTreeNode<String> root = buildSampleTree();
-		System.out.println("Found: "+root.findNode("left")!=null);
+		System.out.println("Found: "+(root.findNode("lef")!=null));
 	}
 }
