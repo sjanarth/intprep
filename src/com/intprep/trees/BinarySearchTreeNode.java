@@ -10,5 +10,20 @@ public class BinarySearchTreeNode<T> extends BinaryTreeNode<T> {
 		// TODO:
 		return false;
 	}
+	
+	public BinarySearchTreeNode<T> getSuccessor()	{
+		return null;
+	}
 
+	public BinarySearchTreeNode<T> getPredecessor()	{
+		return null;
+	}
+
+	public BinarySearchTreeNode<T> getMin()	{
+		return null;
+	}
+
+	public BinarySearchTreeNode<T> getMax()	{
+		return null;
+	}
 }

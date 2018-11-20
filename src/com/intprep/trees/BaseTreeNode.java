@@ -36,8 +36,9 @@ public class BaseTreeNode<T>
 	
 	public void addChild (BaseTreeNode<T> child) {
 		children.add(child);
-		if (child != null)
+		if (child != null)	{
 			child.setParent(this);
+		}
 	}
 	
 	public void addChildren (Collection<BaseTreeNode<T>> nodes) {
@@ -60,6 +61,22 @@ public class BaseTreeNode<T>
 			height = height + child.getHeight();
 		return height;
 	}
+		
+	public boolean isLeaf ()	{
+		return children.isEmpty();
+	}
+	
+	public boolean isRoot()	{
+		return parent == null;
+	}
+	
+	public boolean isComplete ()	{
+		int childCount = children.size();
+		for (BaseTreeNode<T> child : children)
+			if (child.getChildren().size() != childCount)
+				return false;
+		return true;
+	}
 	
 	public BaseTreeNode<T> findNode (T v)	{
 		if (value != null && value.equals(v)) 
@@ -72,30 +89,28 @@ public class BaseTreeNode<T>
 		return null;
 	}
 	
-	public boolean isComplete ()	{
-		int childCount = children.size();
-		for (BaseTreeNode<T> child : children)
-			if (child.getChildren().size() != childCount)
-				return false;
-		return true;
-	}
-	
 	@Override
 	public String toString()	{
+		return value != null ? value.toString() : null;
+	}
+	
+	public String toString2()	{
 		StringBuffer sb = new StringBuffer("[||");
 		if (value != null)
 			sb = new StringBuffer ("["+value.toString()+"|");
 		String sep = "";
 		for (BaseTreeNode<T> child : children)	{
-			T v = child.getValue();
-			sb.append(sep+(v != null ? v.toString() : " "));
-			sep = ",";
+			if (child != null)	{
+				T v = child.getValue();
+				sb.append(sep+(v != null ? v.toString() : " "));
+				sep = ",";
+			}
 		}
 			
 		sb.append("]");
 		return sb.toString();
 	}
-	
+
 	private T value = null;
 	private BaseTreeNode<T> parent = null;
 	private List<BaseTreeNode<T>> children = null;
