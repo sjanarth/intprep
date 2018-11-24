@@ -16,6 +16,17 @@ public class PreOrderIterator<T> extends AbstractIterator<T>
 		if (!hasNext())
 			return null;
 		BinaryTreeNode<T> top = stack.pop();
+		if (top.hasRight())
+			stack.push(top.getRight());
+		if (top.hasLeft())
+			stack.push(top.getLeft());
+		return top;
+	}
+	
+	public BinaryTreeNode<T> nextOld() {
+		if (!hasNext())
+			return null;
+		BinaryTreeNode<T> top = stack.pop();
 		processed.add(top);
 		BinaryTreeNode<T> curr = top;
 		while (curr != null) {

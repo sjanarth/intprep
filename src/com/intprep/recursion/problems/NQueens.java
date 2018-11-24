@@ -1,8 +1,6 @@
 package com.intprep.recursion.problems;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class NQueens 
 {

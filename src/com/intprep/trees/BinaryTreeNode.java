@@ -134,10 +134,10 @@ public class BinaryTreeNode<T> extends BaseTreeNode<T>
 	
 	public static void main (String[] args) {
 		BinaryTreeNode<String> root = buildSampleTree();
-		System.out.println("InOrder: "+root.getInOrderString());
-		printTree ("InOrder", root.getInOrderIterator());
-		System.out.println("PreOrder: "+root.getPreOrderString());
-		printTree ("PreOrder", root.getPreOrderIterator());
+		//System.out.println("InOrder: "+root.getInOrderString());
+		//printTree ("InOrder", root.getInOrderIterator());
+		//System.out.println("PreOrder: "+root.getPreOrderString());
+		//printTree ("PreOrder", root.getPreOrderIterator());
 		System.out.println("PostOrder: "+root.getPostOrderString());
 		printTree ("PostOrder", root.getPostOrderIterator());
 	}

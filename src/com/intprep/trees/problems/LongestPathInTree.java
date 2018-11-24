@@ -5,33 +5,33 @@ import java.util.Stack;
 import com.intprep.trees.BaseTreeNode;
 import com.intprep.trees.BinaryTreeNode;
 
-public class MaxPath 
+public class LongestPathInTree 
 {
-	private static class TreeMaxPathTuple<T> {
+	private static class LongestPathInTreeTuple<T> {
 		BinaryTreeNode<T> pathNode = null;
 		int pathLen = -1;
-		public TreeMaxPathTuple(BinaryTreeNode<T> node, int len){
+		public LongestPathInTreeTuple(BinaryTreeNode<T> node, int len){
 			pathNode = node;
 			pathLen = len;
 		}
 	}
 	
-	private static TreeMaxPathTuple<String> getMaxPathNode (BinaryTreeNode<String> node)	{
-		TreeMaxPathTuple<String> maxPath = new TreeMaxPathTuple<String>(null, 0);
+	private static LongestPathInTreeTuple<String> findLongestPath (BinaryTreeNode<String> node)	{
+		LongestPathInTreeTuple<String> longestPath = new LongestPathInTreeTuple<String>(null, 0);
 		if (node != null)	{
 			if (node.isLeaf())	{
-				return new TreeMaxPathTuple<String>(node, 1);
+				return new LongestPathInTreeTuple<String>(node, 1);
 			} else {
 				for (BaseTreeNode<String> child : node.getChildren())	{
-					TreeMaxPathTuple<String> tuple = getMaxPathNode((BinaryTreeNode<String>)child);
-					if (maxPath.pathLen <= tuple.pathLen)	{
-						maxPath.pathNode = tuple.pathNode;
-						maxPath.pathLen = tuple.pathLen+1;
+					LongestPathInTreeTuple<String> tuple = findLongestPath((BinaryTreeNode<String>)child);
+					if (longestPath.pathLen <= tuple.pathLen)	{
+						longestPath.pathNode = tuple.pathNode;
+						longestPath.pathLen = tuple.pathLen+1;
 					}
 				}
 			}
 		}
-		return maxPath;
+		return longestPath;
 	}
 	
 	private static void printPathInReverse (String s, BinaryTreeNode<String> node) {
@@ -68,7 +68,7 @@ public class MaxPath
 	public static void main (String[] args) {
 		BinaryTreeNode<String> root = buildSampleTree();
 		System.out.println("InOrder: "+root.getInOrderString());
-		TreeMaxPathTuple<String> maxPath = getMaxPathNode(root);
+		LongestPathInTreeTuple<String> maxPath = findLongestPath(root);
 		System.out.println("MaxPath node: "+maxPath.pathNode);
 		System.out.println("MaxPath length: "+maxPath.pathLen);
 		printPathInReverse ("MaxPath path", maxPath.pathNode);
