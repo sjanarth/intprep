@@ -27,14 +27,14 @@ public class MergeTwoBSTs
     	System.out.println();
     }
     
-    private static Node convertToBST (int[] arr, int start, int end) {
+    private static Node arrayToBST (int[] arr, int start, int end) {
     	if (start > end)
     		return null;
     	int mid = (start+end)/2;
     	//System.out.println("("+start+" "+(mid-1)+") "+mid+" ("+(mid+1)+" "+end+")");
     	Node root = new Node (arr[mid]);
-		root.left = convertToBST (arr, start, mid-1);
-		root.right = convertToBST (arr, mid+1, end);
+		root.left = arrayToBST (arr, start, mid-1);
+		root.right = arrayToBST (arr, mid+1, end);
     	return root;
     }
     
@@ -66,16 +66,16 @@ public class MergeTwoBSTs
     	int[] arr1 = bstToArray (root1);
     	int[] arr2 = bstToArray (root2);
     	int[] mergedArr = mergeArrays (arr1, arr2);
-    	return convertToBST (mergedArr, 0, mergedArr.length-1);
+    	return arrayToBST (mergedArr, 0, mergedArr.length-1);
     }
     
     public static void main (String[] args) {
     	int[] arr1 = new int[] {30,40,45,50,55,60,70};
     	printArray ("Input-1", arr1);
-    	Node root1 = convertToBST (arr1, 0, arr1.length-1);
+    	Node root1 = arrayToBST (arr1, 0, arr1.length-1);
     	int[] arr2 = new int[] {32,42,47,52,57,62,72};
     	printArray ("Input-2", arr2);
-    	Node root2 = convertToBST (arr2, 0, arr2.length-1);
+    	Node root2 = arrayToBST (arr2, 0, arr2.length-1);
     	Node merged = mergeBSTs (root1, root2);
     	StringBuffer sb = new StringBuffer();
     	traverseInOrder (merged, sb);

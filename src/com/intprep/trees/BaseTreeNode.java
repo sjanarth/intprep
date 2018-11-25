@@ -56,10 +56,13 @@ public class BaseTreeNode<T>
 	}
 	
 	public int getHeight ()	{
-		int height = 1;
-		for (BaseTreeNode<T> child : children)
-			height = height + child.getHeight();
-		return height;
+		int maxChildHeight = 0;
+		for (BaseTreeNode<T> child : children)	{
+			if (child != null)	{
+				maxChildHeight = Math.max(maxChildHeight, child.getHeight());
+			}
+		}
+		return maxChildHeight+1;
 	}
 		
 	public boolean isLeaf ()	{

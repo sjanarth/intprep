@@ -61,7 +61,7 @@ public class BinaryTreeNode<T> extends BaseTreeNode<T>
 	}
 	
 	public String getInOrderString()	{
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		if (getLeft() != null)
 			sb.append(getLeft().getInOrderString());
 		sb.append(getValue()+" ");
@@ -71,7 +71,7 @@ public class BinaryTreeNode<T> extends BaseTreeNode<T>
 	}
 	
 	public String getPreOrderString()	{
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		sb.append(getValue()+" ");
 		if (getLeft() != null)
 			sb.append(getLeft().getPreOrderString());
@@ -81,13 +81,28 @@ public class BinaryTreeNode<T> extends BaseTreeNode<T>
 	}
 
 	public String getPostOrderString()	{
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		if (getLeft() != null)
 			sb.append(getLeft().getPostOrderString());
 		if (getRight() != null)
 			sb.append(getRight().getPostOrderString());
 		sb.append(getValue()+" ");
 		return sb.toString();
+	}
+
+	private String getLevelOrderString(int start, int level)	{
+		if (start == level)
+			return getValue()+" ";
+		StringBuilder sb = new StringBuilder();
+		if (getLeft() != null)
+			sb.append(getLeft().getLevelOrderString(start+1, level));
+		if (getRight() != null)
+			sb.append(getRight().getLevelOrderString(start+1, level));
+		return sb.toString();
+	}
+
+	public String getLevelOrderString(int level)	{
+		return getLevelOrderString(1, level);
 	}
 
 	public Iterator<BinaryTreeNode<T>> getPreOrderIterator ()	{
@@ -100,6 +115,10 @@ public class BinaryTreeNode<T> extends BaseTreeNode<T>
 	
 	public Iterator<BinaryTreeNode<T>> getPostOrderIterator ()	{
 		return new PostOrderIterator<T>(this);
+	}
+
+	public Iterator<BinaryTreeNode<T>> getLevelOrderIterator (int level)	{
+		return new LevelOrderIterator<T>(this, level);
 	}
 
 	public boolean isBalanced ()	{
@@ -125,7 +144,7 @@ public class BinaryTreeNode<T> extends BaseTreeNode<T>
 	}
 	
 	private static void printTree (String s, Iterator<BinaryTreeNode<String>> it)	{
-		System.out.print("\n"+s+": ");
+		System.out.print(s+": ");
 		while (it.hasNext())	{
 			System.out.print(it.next()+" ");
 		}
@@ -134,11 +153,14 @@ public class BinaryTreeNode<T> extends BaseTreeNode<T>
 	
 	public static void main (String[] args) {
 		BinaryTreeNode<String> root = buildSampleTree();
-		//System.out.println("InOrder: "+root.getInOrderString());
-		//printTree ("InOrder", root.getInOrderIterator());
-		//System.out.println("PreOrder: "+root.getPreOrderString());
-		//printTree ("PreOrder", root.getPreOrderIterator());
+		System.out.println("InOrder: "+root.getInOrderString());
+		printTree ("InOrder", root.getInOrderIterator());
+		System.out.println("PreOrder: "+root.getPreOrderString());
+		printTree ("PreOrder", root.getPreOrderIterator());
 		System.out.println("PostOrder: "+root.getPostOrderString());
 		printTree ("PostOrder", root.getPostOrderIterator());
+		System.out.println("LevelOrder: "+root.getLevelOrderString(3));
+		printTree ("LevelOrder", root.getLevelOrderIterator(3));
+		System.out.println("Height="+root.getHeight());
 	}
 }
