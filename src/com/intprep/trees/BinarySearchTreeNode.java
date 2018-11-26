@@ -1,6 +1,8 @@
 package com.intprep.trees;
 
-public class BinarySearchTreeNode<T> extends BinaryTreeNode<T> 
+import java.util.Comparator;
+
+public class BinarySearchTreeNode<T extends Comparator> extends BinaryTreeNode<T> 
 {
 	public BinarySearchTreeNode(T v) {
 		super(v);

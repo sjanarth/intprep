@@ -1,36 +1,29 @@
 package com.intprep.trees;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class PostOrderIterator<T> extends AbstractIterator<T> 
 {
 	public PostOrderIterator(BinaryTreeNode<T> node) {
 		pushLeft(node);
-		processed = new HashSet<BinaryTreeNode<T>>();
 	}
 	
 	@Override
 	public BinaryTreeNode<T> next() {
 		if (!hasNext())
 			return null;
-		BinaryTreeNode<T> top = stack.pop();
-		processed.add(top);
+		BinaryTreeNode<T> top = popStack();
 		BinaryTreeNode<T> curr = top;
 		while (curr != null) {
 			BinaryTreeNode<T> left = curr.getLeft();
 			BinaryTreeNode<T> right = curr.getRight();
-			if (left != null && !processed.contains(left))	{
+			if (left != null && !isProcessed(left))	{
 				pushLeft(left); break;
-			} else if (right != null && !processed.contains(right))	{
+			} else if (right != null && !isProcessed(right))	{
 				pushLeft(right); break;
-			} else if (!processed.contains(curr))	{
+			} else if (!isProcessed(curr))	{
 				break;
 			}
 			curr = (BinaryTreeNode<T>) curr.getParent();
 		}
 		return top;
 	}
-	
-	private Set<BinaryTreeNode<T>> processed = null;
 }

@@ -10,7 +10,7 @@ public class InOrderIterator<T> extends AbstractIterator<T>
 	public BinaryTreeNode<T> next() {
 		if (!hasNext())
 			return null;
-		BinaryTreeNode<T> top = stack.pop();
+		BinaryTreeNode<T> top = popStack();
 		pushLeft(top.getRight());
 		return top;
 	}
