@@ -1,12 +1,5 @@
 package com.intprep.trees.problems;
 
-import java.util.Deque;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Set;
-import java.util.Stack;
-
 public class ListAllPathsInTree2 
 {
     private static class Node {

@@ -64,6 +64,16 @@ public class BaseTreeNode<T>
 		}
 		return maxChildHeight+1;
 	}
+	
+	public int getLevel ()	{
+		int level = 0;
+		BaseTreeNode<T> curr = this;
+		while (curr != null)	{
+			level++;
+			curr = curr.getParent();
+		}
+		return level;
+	}
 		
 	public boolean isLeaf ()	{
 		return children.isEmpty();
