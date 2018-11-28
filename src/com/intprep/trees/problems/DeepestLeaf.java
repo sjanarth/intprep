@@ -1,7 +1,5 @@
 package com.intprep.trees.problems;
 
-import com.intprep.trees.problems.ClosestLeaf.Node;
-
 public class DeepestLeaf 
 {
 	protected static final String DELIM = ",";

@@ -52,7 +52,7 @@ public class ClosestLeaf
 		Node n8 = new Node(8); 	n5.right = n8;
 		Node n10 = new Node(10); n8.right = n10;
 		Node n6 = new Node(6);	n4.left = n6;
-//		Node n7 = new Node(7);	n3.right = n7;
+		Node n7 = new Node(7);	n3.right = n7;
 		Node n9 = new Node(9);	n6.left = n9;
 		showSampleTree(root);
 		return root;
@@ -67,20 +67,13 @@ public class ClosestLeaf
 		Set<String> allPaths = getAllPathsToLeaves(root);
 		String pathWith = findClosestLeafThroughNode (allPaths, start);
 		String pathWithout = findClosestLeafNotThroughNode (allPaths, start);
-		//System.out.println("Closest-Path-1: "+pathWith);
-		//System.out.println("Closest-Path-2: "+pathWithout);
-		int indStart = pathWith.indexOf(String.valueOf(start.data));
-		String startToRoot = pathWith.substring(0, indStart+1);
-		StringBuilder pathCombined = new StringBuilder(startToRoot);
-		pathCombined = pathCombined.reverse();
-		int indLCA = findLCA (pathWith, pathWithout);
-		String pathAfterLCA = pathWithout.substring(indLCA+2); 
-		if (pathAfterLCA.length() > 0) {
-			pathCombined.append(",");
-			pathCombined.append(pathAfterLCA);
-		}
-		pathWithout = pathCombined.toString();
-		String closestLeaf = pathWith.length() < pathWithout.length() ? pathWith : pathWithout;
+		System.out.println("pathWith=["+pathWith+"]");
+		System.out.println("pathWithout=["+pathWithout+"]");
+		String pathDown = getPathFromStart(pathWith, start);
+		String pathThroughLCA = getPathThroughLCA(pathWith, pathWithout, start);
+		System.out.println("pathDown=["+pathDown+"]");
+		System.out.println("pathThroughLCA=["+pathThroughLCA+"]");
+		String closestLeaf = pathDown.length() < pathThroughLCA.length() ? pathDown : pathThroughLCA;
 		System.out.println("Closest-Leaf of "+start.data+": "+closestLeaf);
 	}
 	
@@ -141,6 +134,26 @@ public class ClosestLeaf
     	}
     	return shortestPath;
     }
+
+    private static String getPathFromStart (String pathWith, Node start) {
+		int indStart = pathWith.indexOf(String.valueOf(start.data));
+		String fromStart = pathWith.substring(indStart);
+		return fromStart;
+    }
+    
+    private static String getPathThroughLCA (String pathWith, String pathWithout, Node start) {
+    	int indStart = pathWith.indexOf(String.valueOf(start.data));
+		String rootToStart = pathWith.substring(0, indStart+1);
+		StringBuilder pathCombined = new StringBuilder(rootToStart);
+		pathCombined = pathCombined.reverse();
+		int indLCA = findLCA (pathWith, pathWithout);
+		String pathAfterLCA = pathWithout.substring(indLCA+2);
+		if (pathAfterLCA.length() > 0) {
+			pathCombined.append(",");
+			pathCombined.append(pathAfterLCA);
+		}
+		return pathCombined.toString();
+    }
     
     private static int findLCA (String path1, String path2) {
     	if (path1 == null || path2 == null)
@@ -153,4 +166,6 @@ public class ClosestLeaf
     	}
     	return i;
     }
+    
+    
 }
