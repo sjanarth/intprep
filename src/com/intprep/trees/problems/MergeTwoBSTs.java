@@ -2,31 +2,44 @@ package com.intprep.trees.problems;
 
 public class MergeTwoBSTs 
 {
-    private static class Node {
+	protected static final String DELIM = ",";
+	
+	protected static class Node {
         int data;
         Node left;
         Node right;
         public Node (int d)	{ data = d; }
     }
-
-    private static void traverseInOrder (Node node, StringBuffer sb) {
-    	if (node.left != null)	
-    		traverseInOrder(node.left, sb);
-    	if (sb.length() > 0)
-    		sb.append(","+node.data);
-    	else
-    		sb.append(node.data);
-    	if (node.right != null)	
-    		traverseInOrder(node.right, sb);
-    }
     
+	protected static String traverseInOrder(Node node) {
+		StringBuilder sb = new StringBuilder();
+		if (node.left != null)
+			sb.append(traverseInOrder(node.left));
+		if (sb.length() > 0) sb.append(DELIM);
+		sb.append(node.data);
+		if (node.right != null)
+			sb.append(DELIM+traverseInOrder(node.right));
+		return sb.toString();
+	}
+	
+    public static void main (String[] args) {
+    	int[] arr1 = new int[] {30,40,45,50,55,60,70};
+    	printArray ("Input-1", arr1);
+    	Node root1 = arrayToBST (arr1, 0, arr1.length-1);
+    	int[] arr2 = new int[] {32,42,47,52,57,62,72};
+    	printArray ("Input-2", arr2);
+    	Node root2 = arrayToBST (arr2, 0, arr2.length-1);
+    	Node merged = mergeBSTs (root1, root2);
+    	System.out.println("InOder(merged): "+traverseInOrder (merged));
+    }
+
     private static void printArray (String msg, int[] arr) {
-    	System.out.print(msg);
+    	System.out.print(msg+":");
     	for (int k : arr)
     		System.out.print(" "+k);
     	System.out.println();
     }
-    
+	
     private static Node arrayToBST (int[] arr, int start, int end) {
     	if (start > end)
     		return null;
@@ -39,15 +52,21 @@ public class MergeTwoBSTs
     }
     
     private static int[] bstToArray (Node root) {
-    	StringBuffer sb = new StringBuffer();
-    	traverseInOrder (root, sb);
-    	String[] splits = sb.toString().split(",");
+    	String inOrder = traverseInOrder (root);
+    	String[] splits = inOrder.split(",");
     	int[] arr = new int[splits.length];
     	for (int i = 0; i < splits.length; i++)
     		arr[i] = Integer.parseInt(splits[i]);
     	return arr;
     }
     
+    private static Node mergeBSTs (Node root1, Node root2) {
+    	int[] arr1 = bstToArray (root1);
+    	int[] arr2 = bstToArray (root2);
+    	int[] mergedArr = mergeArrays (arr1, arr2);
+    	return arrayToBST (mergedArr, 0, mergedArr.length-1);
+    }
+
     private static int[] mergeArrays (int[] arr1, int[] arr2) {
     	int[] merged = new int[arr1.length+arr2.length];
     	int i = 0, j = 0, k = 0;
@@ -61,26 +80,4 @@ public class MergeTwoBSTs
     	while (j < arr2.length) merged[k++] = arr2[j++];
     	return merged;
     }
-    
-    private static Node mergeBSTs (Node root1, Node root2) {
-    	int[] arr1 = bstToArray (root1);
-    	int[] arr2 = bstToArray (root2);
-    	int[] mergedArr = mergeArrays (arr1, arr2);
-    	return arrayToBST (mergedArr, 0, mergedArr.length-1);
-    }
-    
-    public static void main (String[] args) {
-    	int[] arr1 = new int[] {30,40,45,50,55,60,70};
-    	printArray ("Input-1", arr1);
-    	Node root1 = arrayToBST (arr1, 0, arr1.length-1);
-    	int[] arr2 = new int[] {32,42,47,52,57,62,72};
-    	printArray ("Input-2", arr2);
-    	Node root2 = arrayToBST (arr2, 0, arr2.length-1);
-    	Node merged = mergeBSTs (root1, root2);
-    	StringBuffer sb = new StringBuffer();
-    	traverseInOrder (merged, sb);
-    	System.out.println("InOder(merged): "+sb.toString());
-    }
-	
-
 }

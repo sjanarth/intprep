@@ -6,16 +6,44 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Set;
 
-public class ClosestLeaf 
+public class ClosestLeaf
 {
-    private static class Node {
+	protected static final String DELIM = ",";
+	
+	protected static class Node {
         int data;
         Node left;
         Node right;
         public Node (int d)	{ data = d; }
     }
     
-	private static Node buildSampleTree()	{
+	protected static String traversePreOrder(Node node)	{
+		StringBuilder sb = new StringBuilder();
+		sb.append(node.data);
+		if (node.left != null)
+			sb.append(DELIM+traversePreOrder(node.left));
+		if (node.right != null)
+			sb.append(DELIM+traversePreOrder(node.right));
+		return sb.toString();
+	}
+    
+	protected static String traverseInOrder(Node node) {
+		StringBuilder sb = new StringBuilder();
+		if (node.left != null)
+			sb.append(traverseInOrder(node.left));
+		if (sb.length() > 0) sb.append(DELIM);
+		sb.append(node.data);
+		if (node.right != null)
+			sb.append(DELIM+traverseInOrder(node.right));
+		return sb.toString();
+	}
+	
+	protected static void showSampleTree (Node root) {
+		System.out.println("InOrder: "+traverseInOrder(root));
+		System.out.println("PreOrder: "+traversePreOrder(root));
+	}
+
+	protected static Node buildSampleTree()	{
 		Node root = new Node(1);
 		Node n2 = new Node(2);	root.left = n2;
 		Node n3 = new Node(3);	root.right = n3;
@@ -26,32 +54,34 @@ public class ClosestLeaf
 		Node n6 = new Node(6);	n4.left = n6;
 //		Node n7 = new Node(7);	n3.right = n7;
 		Node n9 = new Node(9);	n6.left = n9;
+		showSampleTree(root);
 		return root;
-	}
-
-	public static String traverseInOrder(Node node) {
-		StringBuilder sb = new StringBuilder();
-		if (node.left != null)
-			sb.append(traverseInOrder(node.left));
-		sb.append(node.data+DELIM);
-		if (node.right != null)
-			sb.append(traverseInOrder(node.right));
-		return sb.toString();
-	}
+	}	
 	
 	public static void main (String[] args) {
 		Node root = buildSampleTree();
-		System.out.println("InOrder: "+traverseInOrder(root));
-		System.out.println("Closest Path: "+findClosestLeaf (root, new Node(2)));
+		findClosestLeaf (root, new Node(2));
     }
 
-	private static String getPath (Iterator<Node> it) {
-		StringBuilder sb = new StringBuilder();
-		while (it.hasNext()) {
-			if (sb.length() > 0) sb.append(DELIM);
-			sb.append(it.next().data);
+	private static void findClosestLeaf (Node root, Node start) {
+		Set<String> allPaths = getAllPathsToLeaves(root);
+		String pathWith = findClosestLeafThroughNode (allPaths, start);
+		String pathWithout = findClosestLeafNotThroughNode (allPaths, start);
+		//System.out.println("Closest-Path-1: "+pathWith);
+		//System.out.println("Closest-Path-2: "+pathWithout);
+		int indStart = pathWith.indexOf(String.valueOf(start.data));
+		String startToRoot = pathWith.substring(0, indStart+1);
+		StringBuilder pathCombined = new StringBuilder(startToRoot);
+		pathCombined = pathCombined.reverse();
+		int indLCA = findLCA (pathWith, pathWithout);
+		String pathAfterLCA = pathWithout.substring(indLCA+2); 
+		if (pathAfterLCA.length() > 0) {
+			pathCombined.append(",");
+			pathCombined.append(pathAfterLCA);
 		}
-		return sb.toString();
+		pathWithout = pathCombined.toString();
+		String closestLeaf = pathWith.length() < pathWithout.length() ? pathWith : pathWithout;
+		System.out.println("Closest-Leaf of "+start.data+": "+closestLeaf);
 	}
 	
     private static Set<String> getAllPathsToLeaves (Node root) {
@@ -78,6 +108,15 @@ public class ClosestLeaf
     	}
     	return paths;
     }
+    
+	private static String getPath (Iterator<Node> it) {
+		StringBuilder sb = new StringBuilder();
+		while (it.hasNext()) {
+			if (sb.length() > 0) sb.append(DELIM);
+			sb.append(it.next().data);
+		}
+		return sb.toString();
+	}
     
     private static String findClosestLeafThroughNode (Set<String> allPaths, Node node) {
     	String shortestPath = null;
@@ -114,26 +153,4 @@ public class ClosestLeaf
     	}
     	return i;
     }
-	
-	private static String findClosestLeaf (Node root, Node start) {
-		Set<String> allPaths = getAllPathsToLeaves(root);
-		String pathWith = findClosestLeafThroughNode (allPaths, start);
-		String pathWithout = findClosestLeafNotThroughNode (allPaths, start);
-		System.out.println("Closest Path-1: "+pathWith);
-		System.out.println("Closest Path-2: "+pathWithout);
-		int indStart = pathWith.indexOf(String.valueOf(start.data));
-		String startToRoot = pathWith.substring(0, indStart+1);
-		StringBuilder pathCombined = new StringBuilder(startToRoot);
-		pathCombined = pathCombined.reverse();
-		int indLCA = findLCA (pathWith, pathWithout);
-		String pathAfterLCA = pathWithout.substring(indLCA+2); 
-		if (pathAfterLCA.length() > 0) {
-			pathCombined.append(",");
-			pathCombined.append(pathAfterLCA);
-		}
-		pathWithout = pathCombined.toString();
-		return pathWith.length() < pathWithout.length() ? pathWith : pathWithout;
-	}
-	
-	private static final String DELIM = ",";
 }

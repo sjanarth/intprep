@@ -2,24 +2,33 @@ package com.intprep.trees.problems;
 
 public class SortedArrayToBST 
 {
-    private static class Node {
+	protected static final String DELIM = ",";
+	
+	protected static class Node {
         int data;
         Node left;
         Node right;
         public Node (int d)	{ data = d; }
     }
-
-    private static void traverseInOrder (Node node, StringBuffer sb) {
-    	if (node.left != null)	
-    		traverseInOrder(node.left, sb);
-    	if (sb.length() > 0)
-    		sb.append(","+node.data);
-    	else
-    		sb.append(node.data);
-    	if (node.right != null)	
-    		traverseInOrder(node.right, sb);
-    }
     
+	protected static String traverseInOrder(Node node) {
+		StringBuilder sb = new StringBuilder();
+		if (node.left != null)
+			sb.append(traverseInOrder(node.left));
+		if (sb.length() > 0) sb.append(DELIM);
+		sb.append(node.data);
+		if (node.right != null)
+			sb.append(DELIM+traverseInOrder(node.right));
+		return sb.toString();
+	}
+	
+    public static void main (String[] args) {
+    	int[] arr = new int[] {30,40,45,50,51,55,60,70};
+    	printArray ("Input", arr);
+    	Node root = convertToBST (arr, 0, arr.length-1);
+    	System.out.println("InOder: "+traverseInOrder (root));
+    }
+	
     private static void printArray (String msg, int[] arr) {
     	System.out.print(msg);
     	for (int k : arr)
@@ -37,14 +46,4 @@ public class SortedArrayToBST
 		root.right = convertToBST (arr, mid+1, end);
     	return root;
     }
-    
-    public static void main (String[] args) {
-    	int[] arr = new int[] {30,40,45,50,51,55,60,70};
-    	printArray ("Input", arr);
-    	Node root = convertToBST (arr, 0, arr.length-1);
-    	StringBuffer sb = new StringBuffer();
-    	traverseInOrder (root, sb);
-    	System.out.println("InOder: "+sb.toString());
-    }
-	
 }
