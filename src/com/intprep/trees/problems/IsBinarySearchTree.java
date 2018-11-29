@@ -1,43 +1,13 @@
 package com.intprep.trees.problems;
 
-public class IsBinarySearchTree 
+public class IsBinarySearchTree extends AbstractTreeProblem
 {
-	private static final String DELIM = ",";
+	public static void main (String[] args) {
+		new IsBinarySearchTree().executeAllTestCases();
+	}
 	
-    private static class Node {
-        int data;
-        Node left;
-        Node right;
-        public Node (int d)	{ data = d; }
-    }
-    
-	protected static String traversePreOrder(Node node)	{
-		StringBuilder sb = new StringBuilder();
-		sb.append(node.data);
-		if (node.left != null)
-			sb.append(DELIM+traversePreOrder(node.left));
-		if (node.right != null)
-			sb.append(DELIM+traversePreOrder(node.right));
-		return sb.toString();
-	}
-    
-	protected static String traverseInOrder(Node node) {
-		StringBuilder sb = new StringBuilder();
-		if (node.left != null)
-			sb.append(traverseInOrder(node.left));
-		if (sb.length() > 0) sb.append(DELIM);
-		sb.append(node.data);
-		if (node.right != null)
-			sb.append(DELIM+traverseInOrder(node.right));
-		return sb.toString();
-	}
-    
-	protected static void showSampleTree (Node root) {
-		System.out.println("InOrder: "+traverseInOrder(root));
-		System.out.println("PreOrder: "+traversePreOrder(root));
-	}
-    
-	private static Node buildSampleTree()	{
+	@Override
+	protected Node buildCustomTree()	{
 		Node root = new Node(50);
 		Node left = new Node(40);
 		left.left = new Node(30);
@@ -47,12 +17,11 @@ public class IsBinarySearchTree
 		right.left = new Node(70);
 		right.right = new Node(55);
 		root.right = right;
-		showSampleTree(root);
 		return root;
 	}
 	
-	public static void main (String[] args) {
-		Node root = buildSampleTree();
+	@Override
+	public void mainLogic (Node root) {
 		System.out.println("IsBinarySearchTree: "+isBST(root));
 	}
     

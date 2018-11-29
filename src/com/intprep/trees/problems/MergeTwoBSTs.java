@@ -1,28 +1,17 @@
 package com.intprep.trees.problems;
 
-public class MergeTwoBSTs 
+public class MergeTwoBSTs extends AbstractTreeProblem 
 {
-	protected static final String DELIM = ",";
-	
-	protected static class Node {
-        int data;
-        Node left;
-        Node right;
-        public Node (int d)	{ data = d; }
-    }
-    
-	protected static String traverseInOrder(Node node) {
-		StringBuilder sb = new StringBuilder();
-		if (node.left != null)
-			sb.append(traverseInOrder(node.left));
-		if (sb.length() > 0) sb.append(DELIM);
-		sb.append(node.data);
-		if (node.right != null)
-			sb.append(DELIM+traverseInOrder(node.right));
-		return sb.toString();
+	public static void main (String[] args) {
+		new MergeTwoBSTs().executeAllTestCases();
 	}
+
+	@Override
+	public void mainLogic (Node root)	{
+    }
 	
-    public static void main (String[] args) {
+	@Override 
+	public void executeAllTestCases()	{
     	int[] arr1 = new int[] {30,40,45,50,55,60,70};
     	printArray ("Input-1", arr1);
     	Node root1 = arrayToBST (arr1, 0, arr1.length-1);
@@ -33,14 +22,14 @@ public class MergeTwoBSTs
     	System.out.println("InOder(merged): "+traverseInOrder (merged));
     }
 
-    private static void printArray (String msg, int[] arr) {
+    private void printArray (String msg, int[] arr) {
     	System.out.print(msg+":");
     	for (int k : arr)
     		System.out.print(" "+k);
     	System.out.println();
     }
 	
-    private static Node arrayToBST (int[] arr, int start, int end) {
+    private Node arrayToBST (int[] arr, int start, int end) {
     	if (start > end)
     		return null;
     	int mid = (start+end)/2;
@@ -51,7 +40,7 @@ public class MergeTwoBSTs
     	return root;
     }
     
-    private static int[] bstToArray (Node root) {
+    private int[] bstToArray (Node root) {
     	String inOrder = traverseInOrder (root);
     	String[] splits = inOrder.split(",");
     	int[] arr = new int[splits.length];
@@ -60,14 +49,14 @@ public class MergeTwoBSTs
     	return arr;
     }
     
-    private static Node mergeBSTs (Node root1, Node root2) {
+    private Node mergeBSTs (Node root1, Node root2) {
     	int[] arr1 = bstToArray (root1);
     	int[] arr2 = bstToArray (root2);
     	int[] mergedArr = mergeArrays (arr1, arr2);
     	return arrayToBST (mergedArr, 0, mergedArr.length-1);
     }
 
-    private static int[] mergeArrays (int[] arr1, int[] arr2) {
+    private int[] mergeArrays (int[] arr1, int[] arr2) {
     	int[] merged = new int[arr1.length+arr2.length];
     	int i = 0, j = 0, k = 0;
     	while (i < arr1.length && j < arr2.length)	{	
