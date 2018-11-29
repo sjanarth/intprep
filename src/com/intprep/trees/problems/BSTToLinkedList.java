@@ -71,6 +71,7 @@ public class BSTToLinkedList extends AbstractTreeProblem
 	    		curr = curr.left;
 	    	}
     	}
+    	System.out.println();
     }
 	
     private static class InOrderIterator implements Iterator<Node>

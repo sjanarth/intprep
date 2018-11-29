@@ -5,6 +5,7 @@ import com.intprep.trees.problems.BSTToLinkedList;
 import com.intprep.trees.problems.ClosestLeaf;
 import com.intprep.trees.problems.DeepestLeaf;
 import com.intprep.trees.problems.DistanceBetweenNodes;
+import com.intprep.trees.problems.FlipBinaryTree;
 import com.intprep.trees.problems.IsBinarySearchTree;
 import com.intprep.trees.problems.IsBinarySearchTree2;
 import com.intprep.trees.problems.IsSubTree;
@@ -35,6 +36,7 @@ public class Executor
 		new LowestCommonAncestor(),
 		new MergeTwoBSTs(),
 		new SortedArrayToBST(),
+		new FlipBinaryTree(),
 	};
 	
 	public static void main (String[] args) {

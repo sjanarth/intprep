@@ -21,8 +21,6 @@ public abstract class AbstractTreeProblem
 			Node tree = trees.get(key);
 			showTree(tree);
 			mainLogic(tree);
-			System.out.println();
-			System.out.println();
 		}
 	}
     
