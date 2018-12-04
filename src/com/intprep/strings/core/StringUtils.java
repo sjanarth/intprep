@@ -1,4 +1,4 @@
-package com.intprep.strings;
+package com.intprep.strings.core;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -18,19 +18,7 @@ public class StringUtils
 		return sb.toString();
 	}
 	
-	public static boolean allUnique (String s) {
-		for (int i = 0; i < s.length()-1; i++) {
-			for (int j = i+1; j < s.length(); j++	) {
-				if (s.charAt(i) == s.charAt(j))	{
-					//System.out.println("match at "+i+","+j);
-					return false;
-				}
-			}
-		}
-		return true;
-	}
-	
-	public static boolean allUnique2 (String s) {
+	public static boolean isAllUniqueChars (String s) {
 		Set<Character> uniq = new HashSet<Character> ();
 		for (int i = 0; i < s.length(); i++)	{
 			char ch = s.charAt(i);

@@ -1,4 +1,4 @@
-package com.intprep;
+package com.intprep.lists;
 
 public class ListNode<T> 
 {

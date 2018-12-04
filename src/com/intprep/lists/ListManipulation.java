@@ -1,4 +1,4 @@
-package com.intprep;
+package com.intprep.lists;
 
 import java.util.HashSet;
 import java.util.List;
