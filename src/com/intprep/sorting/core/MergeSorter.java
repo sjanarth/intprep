@@ -2,6 +2,22 @@ package com.intprep.sorting.core;
 
 public class MergeSorter extends AbstractSorter 
 {
+	@Override
+	protected int[] sort(int[] input) {
+		mergeSort (input, 0, input.length-1);
+		return input;
+	}
+
+	private void mergeSort (int[] input, int start, int end) {
+		if (start >= end)				// practically, this is (start == end || start == end+1)
+			return;
+		int mid = start+(end-start)/2;	// (start+end)/2 is valid too but could cause an overflow for large data sets
+		debug (input, mid);	
+		mergeSort (input, start, mid);	// mergeSort(input, start, mid-1)	=>	this would lead to an infinite loop for an array of size 2
+		mergeSort (input, mid+1, end);	// mergeSort(input, mid, end)
+		merge (input, start, mid, end);
+	}
+	
 	private void merge (int[] input, int start, int mid, int end) {
 		//System.out.println("merge, start="+start+",mid="+mid+",end="+end);
 		// determine the size of the splits
@@ -19,33 +35,10 @@ public class MergeSorter extends AbstractSorter
 		// merge the two splits
 		int l = 0, r = 0, curr = start;
 		while (l < n1 && r < n2)	{
-			if (left[l] < right[r])	{
-				input[curr++] = left[l++];
-			} else {
-				input[curr++] = right[r++];
-			}
+			if (left[l] < right[r])	input[curr++] = left[l++];
+			else 					input[curr++] = right[r++];
 		}
-		while (l < n1)	{
-			input[curr++] = left[l++];
-		}
-		while (r < n2) {
-			input[curr++] = right[r++];
-		}
-	}
-	
-	private void mergeSort (int[] input, int start, int end) {
-		if (start >= end)				// practically, this is (start == end || start == end+1)
-			return;
-		int mid = start+(end-start)/2;	// (start+end)/2 is valid too but could cause an overflow for large data sets
-		debug (input, mid);	
-		mergeSort (input, start, mid);	// mergeSort(input, start, mid-1)	=>	this would lead to an infinite loop for an array of size 2
-		mergeSort (input, mid+1, end);	// mergeSort(input, mid, end)
-		merge (input, start, mid, end);
-	}
-	
-	@Override
-	protected int[] sort(int[] input) {
-		mergeSort (input, 0, input.length-1);
-		return input;
+		while (l < n1)	input[curr++] = left[l++];
+		while (r < n2) 	input[curr++] = right[r++];
 	}
 }

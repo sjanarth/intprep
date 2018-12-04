@@ -24,9 +24,7 @@ public class QuickSorter extends AbstractSorter
 			while (input[i] < pivotval) i++;
 			while (input[j] > pivotval) j--;
 			if (i <= j)	{
-				int temp = input[i];
-				input[i] = input[j];
-				input[j] = temp;
+				swap(input, i, j);
 				i++;
 				j--;
 			}

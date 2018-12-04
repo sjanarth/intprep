@@ -13,7 +13,6 @@ public class SortExecutor
 		//new DualPivotQuickSorter(),
 		new MergeSorter(),
 		new HeapSorter(),
-		//new HeapSorter2(),
 	};
 	
 	protected static int[] initRandomArray (int size) {
@@ -26,7 +25,7 @@ public class SortExecutor
 	}
 	
 	public static void main(String[] args) {
-		final int SIZE = 10000;
+		final int SIZE = 100;
 		int[] original = initRandomArray (SIZE);
 		for (AbstractSorter sorter : sorters)	{
 			int[] input = Arrays.copyOf(original, SIZE);
