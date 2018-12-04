@@ -1,8 +1,7 @@
-package com.intprep.sort.problems.wip;
+package com.intprep.sort.problems;
 
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 /*
@@ -22,20 +21,31 @@ import java.util.Set;
 
 public class ThreeSum 
 {
-	static String[] findZeroSum(int[] arr) {
-		Map<Integer,Integer> input = new HashMap<Integer,Integer>();
+	private static String getString (int a, int b, int c) {
+		StringBuilder sb = new StringBuilder("{");
+		sb.append(a); sb.append(",");
+		sb.append(b); sb.append(",");
+		sb.append(c); sb.append("}");
+		return sb.toString();
+	}
+	
+	private static String[] findZeroSum(int[] arr) {
+		Set<String> triplets = new HashSet<String>();
+		Arrays.sort(arr);
 		for (int i = 0; i < arr.length; i++) {
-			input.put(arr[i], i);
-		}
-		Set<String> triplets = new HashSet<String>(); 
-		for (int i = 0; i < arr.length; i++)	{
-			for (int j = 0; j < arr.length; j++)	{
-				if (i == j) continue;
-				int complementOfSum = -1 * (arr[i]+arr[j]);
-				System.out.println("arr[i]="+arr[i]+",arr[j]="+arr[j]+",cOS="+complementOfSum);
-				//if (input.contains(complementOfSum))	{
-					triplets.add(getString(arr[i],arr[j],complementOfSum));
-				//}
+			int curr = arr[i];
+			int comp = -1 * curr;
+			int lo = i+1, hi = arr.length-1;
+			while (lo < hi) {
+				int sum = arr[lo]+arr[hi]; 
+				if (sum == comp)	{
+					triplets.add(getString(arr[i], arr[lo], arr[hi]));
+					lo++;
+				} else if (sum < comp)	{
+					lo++;
+				} else	{
+					hi--;
+				}
 			}
 		}
 		return triplets.toArray(new String[0]);
