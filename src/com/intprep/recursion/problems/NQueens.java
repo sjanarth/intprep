@@ -7,6 +7,11 @@ public class NQueens
 	private static final char QUEEN = 'Q';
 	private static final char NO_QUEEN = '-';
 	
+	public static void main (String[] args) {
+		char[][] grid = initGrid (7);
+		placeQueensMain (grid);
+	}
+
 	private static char[][] initGrid (int size)	{
 		char[][] grid = new char[size][size];
 		for (int i = 0; i < grid.length; i++)
@@ -14,7 +19,24 @@ public class NQueens
 		return grid;
 	}
 	
-	private static int countOfSolutions = 0;
+	private static void placeQueensMain (char[][] grid)	{
+		placeQueens (grid, 0);
+	}
+	
+	private static void placeQueens (char[][] grid, int row) {
+		if (row == grid.length)	{
+			printGrid (grid);
+			System.out.println();
+			return;
+		}
+		for (int col = 0; col < grid.length; col++)	{
+			if (isSafe(grid, row, col))	{
+				grid[row][col] = QUEEN;
+				placeQueens (grid, row+1);
+				grid[row][col] = NO_QUEEN;
+			}
+		}
+	}
 	
 	private static void printGrid (char[][] grid) {
 		System.out.println("**** Solution-"+(++countOfSolutions));
@@ -48,27 +70,5 @@ public class NQueens
 		return true;
 	}
 	
-	private static void placeQueens (char[][] grid, int row) {
-		if (row == grid.length)	{
-			printGrid (grid);
-			System.out.println();
-			return;
-		}
-		for (int col = 0; col < grid.length; col++)	{
-			if (isSafe(grid, row, col))	{
-				grid[row][col] = QUEEN;
-				placeQueens (grid, row+1);
-				grid[row][col] = NO_QUEEN;
-			}
-		}
-	}
-	
-	private static void placeQueensMain (char[][] grid)	{
-		placeQueens (grid, 0);
-	}
-	
-	public static void main (String[] args) {
-		char[][] grid = initGrid (7);
-		placeQueensMain (grid);
-	}
+	private static int countOfSolutions = 0;
 }
