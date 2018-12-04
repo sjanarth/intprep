@@ -4,6 +4,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/*
+ * Given K sorted arrays of size N each, merge them and 
+ * print the sorted output. Assume N is very large compared to K. 
+ * N may not even be known. The arrays could be just sorted streams, 
+ * for instance, time stamp streams. All arrays might be sorted in increasing 
+ * manner or decreasing manner. Sort all of them in the manner they appear.
+ * 
+ * Example:
+ * Input: 	K = 3, N =  4, arr[][] = { {1, 3, 5, 7}, {2, 4, 6, 8},{0, 9, 10, 11}} 
+ * Output:	{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11}
+ */
+
 public class KWayMerge 
 {
 	private static int[] mergeKWay (int[][] arr) {

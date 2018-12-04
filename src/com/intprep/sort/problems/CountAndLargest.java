@@ -3,6 +3,30 @@ package com.intprep.sort.problems;
 import java.util.HashMap;
 import java.util.Map;
 
+/*
+ * Given a string array named arr of size N containing KEYS 
+ * and VALUES separated by one space, where KEYS and VALUES can repeat. 
+ * Your task is to find, for each unique key, the number of values with 
+ * that key and the value with the highest lexicographical order 
+ * (also called alphabetical order and dictionary order).
+ * 
+ * Example:
+ * Input:
+ * arr = [
+ * 		“key1 abcd”,
+ * 		“key2 zzz”,
+ * 		“key1 hello”,
+ * 		“key3 world”,
+ * 		"key1 hello"
+ * ]
+ * Output:
+ * [
+ * 		"key1:3,hello",
+ * 		"key2:1,zzz",
+ * 		"key3:1,world"
+ * ]
+ */
+
 public class CountAndLargest 
 {
 	private static String[] getCountAndLargest (String[] input) {

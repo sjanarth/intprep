@@ -1,5 +1,16 @@
 package com.intprep.sort.problems;
 
+/*
+ * You are given an array of non-negative integers only. 
+ * Group them in-place into evens and odds in such a way that 
+ * all evens appear on the left side and all odds on the right side.
+ * 
+ * Example:
+ * 	Input: 	[1, 2, 3, 4]
+ * 	Output:	[2, 4, 1, 3] or [2, 4, 3, 1] or [4, 2, 3, 1]
+ *  
+ */
+
 public class GroupOddEvenInPlace 
 {
 	private static void swap (int[] input, int i1, int i2) {
