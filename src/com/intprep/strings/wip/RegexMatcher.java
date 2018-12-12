@@ -25,7 +25,7 @@ package com.intprep.strings.wip;
 public class RegexMatcher 
 {
 	public static void main (String args[]) {
-		System.out.println(patternMatch ("abcdefg", "a.c.*.*gg*"));
+		System.out.println(patternMatch ("abcdefgh", "a.c.*gg*"));
 	}
 	
 	private static boolean patternMatch (String text, String pattern) {
@@ -35,6 +35,7 @@ public class RegexMatcher
 		char prev_p = ' ';
 		while (ti < textChars.length && pi < patternChars.length) {
 			char p = patternChars[pi];
+			System.out.println("ti="+ti+", ["+textChars[ti]+"], pi="+pi+" ["+p+"], prev_p="+prev_p);
 			switch (p) {
 				case '.': 
 					pi++;
@@ -42,7 +43,10 @@ public class RegexMatcher
 					prev_p = '.';
 					break;
 				case '*':
-					while (ti < textChars.length && (prev_p == '.' || prev_p == textChars[ti])) ti++;
+					while (ti < textChars.length && (prev_p == '.' || prev_p == textChars[ti]))	{
+						System.out.println("    ti="+ti+", ["+textChars[ti]+"], pi="+pi+" ["+p+"], prev_p="+prev_p);
+						ti++;
+					}
 					pi++;
 					break;
 				default:
@@ -56,6 +60,9 @@ public class RegexMatcher
 					}
 			}
 		}
+		if (pi < patternChars.length)
+			return false;
+		
 		return true;
 	}
 }

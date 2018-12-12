@@ -14,17 +14,6 @@ public class LevelWithMostNodes extends AbstractTreeProblem
 		printLevelsAndCounts(root);
     }
 	
-    private static void addLevelsAndCounts (int level, Node node, Map<Integer,Integer> counts) {
-    	if (node != null)	{
-    		Integer count = counts.get(level);
-    		if (count == null)	count = 1;
-    		else count++;
-    		counts.put(level, count);
-    		addLevelsAndCounts(level+1, node.left, counts);
-    		addLevelsAndCounts(level+1, node.right, counts);
-    	}
-    }
-    
     private static void printLevelsAndCounts (Node root) {
     	Map<Integer, Integer> counts = new HashMap<Integer,Integer>();
     	if (root != null)	{
@@ -43,4 +32,15 @@ public class LevelWithMostNodes extends AbstractTreeProblem
     	}
     	System.out.println("Level with max nodes="+maxLevel+", count="+maxCount);
     }
+    
+    private static void addLevelsAndCounts (int level, Node node, Map<Integer,Integer> counts) {
+    	if (node != null)	{
+    		Integer count = counts.get(level);
+    		if (count == null)	count = 1;
+    		else count++;
+    		counts.put(level, count);
+    		addLevelsAndCounts(level+1, node.left, counts);
+    		addLevelsAndCounts(level+1, node.right, counts);
+    	}
+    }   
 }

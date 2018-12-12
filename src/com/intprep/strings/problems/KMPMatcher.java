@@ -13,7 +13,7 @@ public class KMPMatcher
 		matchKMP ("IfyouthinkyouthinktoomuchthenyoumightbewrongThinkaboutit", "you");
 	}
 
-	private static void matchKMP(String text, String pattern) {
+	private static int[] matchKMP(String text, String pattern) {
 		List<Integer> matches = new ArrayList<Integer>();
 		int index = text.indexOf(pattern);
 		while (index > -1)	{
@@ -27,5 +27,9 @@ public class KMPMatcher
 			for (Integer i : matches) System.out.print(i+" ");
 			System.out.println("}");
 		}
+		int[] arr = new int[matches.size()];
+		for (int i = 0; i < matches.size(); i++)
+			arr[i] = matches.get(i);
+		return arr;
 	}
 }

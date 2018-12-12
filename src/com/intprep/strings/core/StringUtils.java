@@ -2,6 +2,7 @@ package com.intprep.strings.core;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -28,6 +29,27 @@ public class StringUtils
 			uniq.add(ch);
 		}
 		return true;
+	}
+	
+	public static int getCountOfUniqChars (String s) {
+		Set<Character> uniq = new HashSet<Character>();
+		for (int i = 0; i < s.length(); i++)	{
+			uniq.add(s.charAt(i));
+		}
+		return uniq.size();
+	}
+	
+	public static Map<Character,Integer> getCountOfEachChar (String s)	{
+		Map<Character,Integer> uniq = new HashMap<Character,Integer>();
+		for (int i = 0; i < s.length(); i++) {
+			Character ch = s.charAt(i);
+			if (uniq.containsKey(ch))	{
+				uniq.put(ch, uniq.get(ch)+1);
+			} else {
+				uniq.put(ch, 1);
+			}
+		}
+		return uniq;
 	}
 	
 	public static String reverse (String s) {
@@ -85,6 +107,16 @@ public class StringUtils
 		return (s1.length() == s1.length()) && 
 				((s1+s1).indexOf(s2) > -1);
 
+	}
+	
+	public static Set<String> getAllSubstrings (String input)	{
+		Set<String> substrs = new LinkedHashSet<String>();
+		for (int i = 0; i < input.length(); i++) {
+			for (int j = 1; j <= input.length() - i; j++)	{
+				substrs.add(input.substring(i, i+j));
+			}
+		}
+		return substrs;
 	}
 	
 	public static void main (String[] args)	{

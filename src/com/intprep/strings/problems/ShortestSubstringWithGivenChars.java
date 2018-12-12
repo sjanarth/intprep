@@ -7,7 +7,7 @@ import java.util.Map;
  * Given two input strings s1 and s2, return the smallest substring 
  * of s1 that includes all unique characters in s2.
  */
-public class ShortestSubstring 
+public class ShortestSubstringWithGivenChars 
 {
 	public static void main (String[] args) {
 		showShortestSubstring("helloworld", "lwrz");
