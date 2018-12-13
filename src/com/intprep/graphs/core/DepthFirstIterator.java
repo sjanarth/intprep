@@ -47,6 +47,6 @@ public class DepthFirstIterator<T> implements Iterator<Vertex<T>>
 		}
 	}
 	
-	private Set<Vertex<T>> processed = new HashSet<Vertex<T>>();
 	private Stack<Vertex<T>> stack = new Stack<Vertex<T>>();
+	private Set<Vertex<T>> processed = new HashSet<Vertex<T>>();
 }
