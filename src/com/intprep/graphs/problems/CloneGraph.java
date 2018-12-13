@@ -9,12 +9,12 @@ import com.intprep.graphs.core.Vertex;
 public class CloneGraph 
 {
 	public static void main (String[] args) {
-		Vertex<Integer> graph = GraphUtils.buildSampleGraph();
+		Vertex<Integer> graph = GraphUtils.buildSampleIntGraph();
 		System.out.println("Showing origianl graph: ");
-		GraphUtils.showGraph(graph);
+		GraphUtils.showComponent(graph);
 		System.out.println();
 		System.out.println("Showing cloned graph: ");
-		GraphUtils.showGraph(cloneGraph(graph, new HashMap<Vertex<Integer>, Vertex<Integer>>()));
+		GraphUtils.showComponent(cloneGraph(graph, new HashMap<Vertex<Integer>, Vertex<Integer>>()));
 	}
 	
 	private static Vertex<Integer> cloneGraph (Vertex<Integer> v, Map<Vertex<Integer>, Vertex<Integer>> clones)	{

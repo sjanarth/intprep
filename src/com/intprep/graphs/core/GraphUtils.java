@@ -1,31 +1,34 @@
 package com.intprep.graphs.core;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class GraphUtils 
 {
-	public static void showGraph (Vertex<Integer> graph) 
+	public static <T> void showComponent (Vertex<T> comp)
 	{
 		//Vertex<Integer> graph = buildSampleGraph();
-		Iterator<Vertex<Integer>> it = new DepthFirstIterator<Integer>(graph);
+		Iterator<Vertex<T>> it = new DepthFirstIterator<T>(comp);
 		System.out.print("Depth first:    ");
 		while (it.hasNext())	System.out.print(it.next().getLabel()+" ");
 		System.out.println();
 		System.out.print("Breadth first:  ");
-		it = new BreadthFirstIterator<Integer>(graph);
+		it = new BreadthFirstIterator<T>(comp);
 		while (it.hasNext())	System.out.print(it.next().getLabel()+" ");
 		System.out.println();
 		System.out.println("Adjacency List: ");
-		printAdjacencyList(graph, new HashSet<Vertex<Integer>>(), new HashSet<String>());
+		printAdjacencyList(comp, new HashSet<Vertex<T>>(), new HashSet<String>());
 	}
-	
-	private static void printAdjacencyList(Vertex<Integer> v, Set<Vertex<Integer>> verticesDone, Set<String> edgesDone) {
+
+	private static <T> void printAdjacencyList(Vertex<T> v, Set<Vertex<T>> verticesDone, Set<String> edgesDone) {
 		if (verticesDone.contains(v))
 			return;
 		StringBuilder sb = new StringBuilder(String.valueOf(v.getLabel()+": "));
-		for (Vertex<Integer> n : v.getNeighbors())	{
+		for (Vertex<T> n : v.getNeighbors())	{
 			String edge = getEdgeAsString(v, n);
 			if (!edgesDone.contains(edge))	{
 				sb.append(edge+" ");
@@ -33,7 +36,7 @@ public class GraphUtils
 		}
 		System.out.println(sb.toString());
 		verticesDone.add(v);
-		for (Vertex<Integer> n : v.getNeighbors())	{
+		for (Vertex<T> n : v.getNeighbors())	{
 			String edge = getEdgeAsString(v, n);
 			if (!edgesDone.contains(edge))	{
 				edgesDone.add(edge);
@@ -41,29 +44,60 @@ public class GraphUtils
 			}
 		}
 	}
-	
-	private static String getEdgeAsString(Vertex<Integer> v, Vertex<Integer> n) {
+
+	private static <T> String getEdgeAsString(Vertex<T> v, Vertex<T> n) {
 		StringBuilder sb = new StringBuilder("{"+String.valueOf(v.getLabel()));
 		sb.append(",");
 		sb.append(String.valueOf(n.getLabel())+"}");
 		return sb.toString();
 	}
 	
-	public static Vertex<Integer> buildSampleGraph ()	
+	public static Vertex<Integer> buildSampleIntGraph ()	
 	{
-		Vertex<Integer> v1 = new Vertex<Integer>(1);
-		Vertex<Integer> v2 = new Vertex<Integer>(2);
-		v1.addNeighbor(v2);
-		Vertex<Integer> v3 = new Vertex<Integer>(3);
-		v2.addNeighbor(v3);
-		v2.addNeighbor(new Vertex<Integer>(4));
-		Vertex<Integer> v5 = new Vertex<Integer>(5);
-		v3.addNeighbor(v5);
-		Vertex<Integer> v6 = new Vertex<Integer>(6);
-		v3.addNeighbor(v6);
-		v5.addNeighbor(v6);
-		v6.addNeighbor(v3);
-		v6.addNeighbor(v5);
+		Vertex<Integer> v1 = null;
+		Map<Integer, Vertex<Integer>> allVs = new HashMap<Integer, Vertex<Integer>>();
+		for (int i = 1; i < 8; i++)	{
+			Vertex<Integer> vi = new Vertex<Integer>(i); 
+			allVs.put(i, vi);
+			if (i == 1)
+				v1 = vi;
+		}
+		connectVertices (allVs.get(1), allVs.get(2));
+		connectVertices (allVs.get(1), allVs.get(3));
+		connectVertices (allVs.get(2), allVs.get(4));
+		connectVertices (allVs.get(3), allVs.get(4));
+		connectVertices (allVs.get(4), allVs.get(5));
+		connectVertices (allVs.get(4), allVs.get(6));
+		connectVertices (allVs.get(5), allVs.get(7));
+		connectVertices (allVs.get(6), allVs.get(7));
+		return v1;
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	private static void connectVertices (Vertex vi, Vertex vj) {
+		vi.addNeighbor(vj);
+		vj.addNeighbor(vi);
+	}
+
+	public static Vertex<String> buildSampleStringGraph ()	
+	{
+		String[] words = new String[] { "One", "Two", "Three", "Four", "Five", "Six", "Seven" }; 
+		Vertex<String> v1 = null;
+		Map<String, Vertex<String>> allVs = new HashMap<String, Vertex<String>>();
+		for (int i = 1; i < 8; i++)	{
+			Vertex<String> vi = new Vertex<String>(words[i-1]); 
+			allVs.put(words[i-1], vi);
+			if (i == 1)
+				v1 = vi;
+		}
+		connectVertices (allVs.get("One"), allVs.get("Two"));
+		connectVertices (allVs.get("One"), allVs.get("Three"));
+		connectVertices (allVs.get("Two"), allVs.get("Four"));
+		connectVertices (allVs.get("Three"), allVs.get("Four"));
+		connectVertices (allVs.get("Four"), allVs.get("Five"));
+		connectVertices (allVs.get("Four"), allVs.get("Six"));
+		connectVertices (allVs.get("Five"), allVs.get("Seven"));
+		connectVertices (allVs.get("Six"), allVs.get("Seven"));
 		return v1;
 	}
 }

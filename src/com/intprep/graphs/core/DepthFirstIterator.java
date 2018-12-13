@@ -7,8 +7,8 @@ import java.util.Stack;
 
 public class DepthFirstIterator<T> implements Iterator<Vertex<T>>
 {
-	public DepthFirstIterator (Vertex<T> graph) {
-		pushDepthFirst(graph);
+	public DepthFirstIterator (Vertex<T> v) {
+		pushDepthFirst(v);
 	}
 	
 	@Override
@@ -19,30 +19,15 @@ public class DepthFirstIterator<T> implements Iterator<Vertex<T>>
 	@Override
 	public Vertex<T> next ()	{
 		Vertex<T> top = stack.pop();
-		if (!stack.isEmpty()) {
-			Vertex<T> second = stack.peek();
-			for (Vertex<T> n : second.getNeighbors())	{
-				if (!processed.contains(n))	{
-					pushDepthFirst(n);
-					break;
-				}
-			}
-		}
+		processed.add(top);
 		return top;
 	}
 	
-	private void pushDepthFirst (Vertex<T> graph) {
-		Vertex<T> v = graph;
-		while (v != null)	{
+	private void pushDepthFirst (Vertex<T> v) {
+		if (v != null && !stack.contains(v) && !processed.contains(v))	{
 			stack.push(v);
-			processed.add(v);
-			Vertex<T> v_prev = v;
-			v = null;
-			for (Vertex<T> n : v_prev.getNeighbors())	{
-				if (!processed.contains(n))	{
-					v = n; 
-					break;
-				}
+			for (Vertex<T> n : v.getNeighbors())	{
+				pushDepthFirst(n);
 			}
 		}
 	}

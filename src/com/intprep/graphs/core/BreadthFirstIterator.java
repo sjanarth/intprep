@@ -8,9 +8,9 @@ import java.util.Set;
 
 public class BreadthFirstIterator<T> implements Iterator<Vertex<T>>
 {
-	public BreadthFirstIterator (Vertex<T> graph) {
-		if (graph != null)	{
-			queue.add(graph);
+	public BreadthFirstIterator (Vertex<T> v) {
+		if (v != null)	{
+			queue.add(v);
 		}
 	}
 	
