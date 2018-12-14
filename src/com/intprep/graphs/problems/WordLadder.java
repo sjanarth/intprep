@@ -44,15 +44,22 @@ public class WordLadder
 				new String[] {"CAT", "CUT", "BAT", "BIT", "BOX", 
 							  "BUT", "FAT", "FIT", "FIX", "FOX"}, 
 				"CAT", 
-				"BOX");
+				"FOX");
+		buildWordLadder (
+				new String[] {"COOL", "FALL", "FAIL", "FOIL", "FOOL", "FOUL", "HOPE",
+							  "PAGE", "PALE", "PALL", "POLL", "POLE", "POOL", "POPE", 
+							  "ROPE", "SALE", "SAGE"}, 
+				"COOL", 
+				"ROPE");
 	}
 	
 	private static String[] buildWordLadder (String[] words, String start, String end) {
+		long startTime = System.nanoTime();
 		Set<String> words2 = preProcessInputs (words, start, end);
 		Map<String,Vertex<String>> graph = buildGraph(words2);
 		Map<Vertex<String>, Vertex<String>> backRefs = new HashMap<Vertex<String>, Vertex<String>>();
-		Queue<Vertex<String>> queue = new LinkedList<Vertex<String>>();
 		backRefs.put(graph.get(start), null);
+		Queue<Vertex<String>> queue = new LinkedList<Vertex<String>>();
 		queue.add(graph.get(start));
 		while (!queue.isEmpty())	{
 			Vertex<String> v = queue.poll();
@@ -73,7 +80,8 @@ public class WordLadder
 			if (found) break;
 		}
 		if (!backRefs.containsKey(graph.get(end)))	{
-			System.out.println("No path exists from "+start+" to "+end);
+			long endTime = System.nanoTime();
+			System.out.println("No path exists from "+start+" to "+end+" ("+(endTime-startTime)+" ns");
 			return new String[] { "-1" };
 		} else {
 			List<String> list = new ArrayList<String>();
@@ -87,8 +95,11 @@ public class WordLadder
 			}
 			Collections.reverse(list);
 			String[] path = list.toArray(new String[0]);
+			long endTime = System.nanoTime();
 			for (String p : path) 
 				System.out.print(p+" ");
+			System.out.print(" ("+(endTime-startTime)+" ns)");
+			System.out.println();
 			return path;
 		}
 	}
