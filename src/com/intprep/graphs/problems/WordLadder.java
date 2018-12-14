@@ -40,7 +40,11 @@ import com.intprep.graphs.core.Vertex;
 public class WordLadder 
 {
 	public static void main (String[] args) {
-		buildWordLadder (new String[] {"CAT", "CUT", "BAT", "BIT", "BOX", "BUT", "FAT", "FIT", "FIX", "FOX"}, "CAT", "BOX");
+		buildWordLadder (
+				new String[] {"CAT", "CUT", "BAT", "BIT", "BOX", 
+							  "BUT", "FAT", "FIT", "FIX", "FOX"}, 
+				"CAT", 
+				"BOX");
 	}
 	
 	private static String[] buildWordLadder (String[] words, String start, String end) {
