@@ -69,7 +69,7 @@ public class AlienDictionary
 		for (Vertex<Character> v : allVs) {
 			topologicalSort (v, stack);
 		}
-		System.out.print("Alient alphabet is { "); 
+		System.out.print("Alien alphabet is { "); 
 		while (!stack.isEmpty()) {
 			System.out.print(stack.pop().getLabel()+" ");
 		}

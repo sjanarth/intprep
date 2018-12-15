@@ -46,12 +46,11 @@ public class KnightsTour
 				printPathInReverse(backRefs, end);
 				return;
 			}
-			int dist = distances.get(curPos);
 			for (int[] move : VALID_MOVES) {
 				Position newPos = new Position(curPos.getRow()+move[0], curPos.getCol()+move[1]);
-				if (isSafe(N, newPos))	{
+				if (isSafe(N, newPos) && distances.get(newPos) == -1)	{
 					queue.add(newPos);
-					distances.put(newPos, dist+1);
+					distances.put(newPos, distances.get(curPos)+1);
 					if (!backRefs.containsKey(newPos))
 						backRefs.put(newPos, curPos);
 				}
@@ -81,7 +80,6 @@ public class KnightsTour
 				int dist = -1;
 				if (p.equals(start)) dist = 0;
 				distances.put(p,  dist);
-				//System.out.println(p.toString()+" : "+dist);
 			}
 		}
 		return distances;
