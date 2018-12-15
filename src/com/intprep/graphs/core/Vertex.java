@@ -39,6 +39,21 @@ public class Vertex<T>
 		neighbors.add(v);
 	}
 	
+	@Override
+	@SuppressWarnings("unchecked")
+	public boolean equals (Object o)	{
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;		
+		Vertex<T> v = (Vertex<T>) o;
+		return label.equals(v.getLabel());
+	}
+	
+	@Override
+	public int hashCode() {
+		return label.hashCode();
+	}	
+	
+	@Override
 	public String toString()	{
 		StringBuilder sb = new StringBuilder();
 		sb.append(label.toString()+":{");

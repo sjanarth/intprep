@@ -8,7 +8,7 @@ import java.util.Stack;
 public class DepthFirstIterator<T> implements Iterator<Vertex<T>>
 {
 	public DepthFirstIterator (Vertex<T> v) {
-		pushDepthFirst(v);
+		walkDepthFirst(v);
 	}
 	
 	@Override
@@ -23,11 +23,11 @@ public class DepthFirstIterator<T> implements Iterator<Vertex<T>>
 		return top;
 	}
 	
-	private void pushDepthFirst (Vertex<T> v) {
+	private void walkDepthFirst (Vertex<T> v) {
 		if (v != null && !stack.contains(v) && !processed.contains(v))	{
 			stack.push(v);
 			for (Vertex<T> n : v.getNeighbors())	{
-				pushDepthFirst(n);
+				walkDepthFirst(n);
 			}
 		}
 	}

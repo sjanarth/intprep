@@ -9,9 +9,13 @@ import java.util.Set;
 
 public class GraphUtils 
 {
+	public static void main (String[] args) {
+		Vertex<Integer> graph = buildSampleIntGraph();
+		showComponent (graph);
+	}
+	
 	public static <T> void showComponent (Vertex<T> comp)
 	{
-		//Vertex<Integer> graph = buildSampleGraph();
 		Iterator<Vertex<T>> it = new DepthFirstIterator<T>(comp);
 		System.out.print("Depth first:    ");
 		while (it.hasNext())	System.out.print(it.next().getLabel()+" ");
@@ -20,7 +24,7 @@ public class GraphUtils
 		it = new BreadthFirstIterator<T>(comp);
 		while (it.hasNext())	System.out.print(it.next().getLabel()+" ");
 		System.out.println();
-		System.out.println("Adjacency List: ");
+		System.out.println("Adjacency list: ");
 		printAdjacencyList(comp, new HashSet<Vertex<T>>(), new HashSet<String>());
 	}
 
