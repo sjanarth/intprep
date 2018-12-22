@@ -41,5 +41,6 @@ public class DutchFlag
 
 	public static void main (String[] args) {
 		System.out.println(dutch_flag_sort(String.valueOf("GBGGRBRGRGBBRGBGRBBBGGGRRR").toCharArray()));
+		System.out.println(dutch_flag_sort(String.valueOf("GBGRGRBRGRGBRBRGBGRBBBGGGRRBR").toCharArray()));
 	}
 }
