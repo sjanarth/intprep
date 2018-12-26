@@ -5,7 +5,7 @@ package com.intprep.recursion.problems;
  * You are allowed to traverse the grid one step at a time either down or to the right.
  */
 
-public class CountPathsOnGrid
+public class CountPaths
 {
 	public static void main (String[] args) {
 		for (int i = 2; i < 10; i++)
