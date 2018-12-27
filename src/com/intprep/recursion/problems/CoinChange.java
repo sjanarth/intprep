@@ -29,14 +29,14 @@ public class CoinChange
 		findMinCoinChange (20, new int[] {2,3,5,7});
 	}
 	
-	private static void findMinCoinChange (int sum, int[] coins) {
+	protected static void findMinCoinChange (int sum, int[] coins) {
 		int min = findMinCoinChangeNoMemo (sum, coins);
 		System.out.println("Minimum coin change to make "+sum+
 				" from "+toString(coins)+
 				" is "+min
 				);
-		int min2 = findMinCoinChangeWithMemo (sum, coins, new HashMap<String,Integer>());
-		System.out.println("Minimum coin change to make (using memo)"+sum+
+		int min2 = findMinCoinChangeWithMemo (sum, coins, new HashMap<Integer,Integer>());
+		System.out.println("Minimum coin change to make (using memo) "+sum+
 				" from "+toString(coins)+
 				" is "+min2
 				);
@@ -56,35 +56,13 @@ public class CoinChange
 		return min;
 	}
 	
-	private static int findMinCoinChangeWithMemo (int sum, int[] coins, Map<String,Integer> memo) { 	
-		String key = makeKey (sum, coins);
-		if (memo.containsKey(key)) 
-			return memo.get(key);
-		int min = Integer.MAX_VALUE;
-		if (sum == 0) {
-			min = 0;
-		} else if (sum < 0) {
-			min = Integer.MAX_VALUE;
-		} else {
-			for (int c : coins) if (c == sum) min = 1; 
-			for (int c : coins) {
-				int thisMin = findMinCoinChangeNoMemo (sum-c, coins);
-				min = Math.min(min,  thisMin <= 0 ? Integer.MAX_VALUE : thisMin);	
-				if (thisMin <= 0) thisMin = Integer.MAX_VALUE;
-			}
-			min++;
-		}
-		memo.put(key, min);
+	private static int findMinCoinChangeWithMemo (int sum, int[] coins, Map<Integer,Integer> memo) { 	
+		if (memo.containsKey(sum)) return memo.get(sum);
+		int min = findMinCoinChangeNoMemo(sum, coins);
+		memo.put(sum, min);
 		return min;
 	}
 	
-	private static String makeKey (int sum, int[] coins) {
-		StringBuilder sb = new StringBuilder();
-		sb.append(sum); sb.append(",");
-		sb.append(toString(coins));
-		return sb.toString();
-	}
-
 	private static String toString (int[] arr) {
 		return Arrays.toString(arr).
 					replaceAll("\\[", "\\{").

@@ -15,7 +15,7 @@ public class MaxPath
 		findMaxPath (buildSampleGrid(5, 5));
 	}
 	
-	private static int[][] buildSampleGrid(int n, int m)	{
+	protected static int[][] buildSampleGrid(int n, int m)	{
 		System.out.println("Sample Grid");
 		int[][] grid = new int[n][m];
 		for (int i = 0; i < n; i++) {
@@ -35,7 +35,7 @@ public class MaxPath
 		return MIN_VALUE+value;
 	}
 	
-	private static void findMaxPath (int[][] grid) {
+	protected static void findMaxPath (int[][] grid) {
 		int max = findMaxPathNoMemo (grid, 0, 0);
 		System.out.println("Max-path = "+max);
 

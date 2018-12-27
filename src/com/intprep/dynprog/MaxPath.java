@@ -1,55 +1,35 @@
 package com.intprep.dynprog;
 
-public class MaxPath 
+/*
+ * Given a matrix of N * M. Find the maximum path sum in matrix. 
+ * The maximum path is sum of all elements from (0,0) to (N,M) 
+ * where you are allowed to move only down or horizontally to the right.
+ */
+public class MaxPath extends com.intprep.recursion.problems.MaxPath
 {
-	private static int[][] buildSampleGrid(int n, int m)	{
-		System.out.println("Sample Grid");
-		int[][] grid = new int[n][m];
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < m; j++) {
-				grid[i][j] = getRandomValue();
-				System.out.print(grid[i][j]+" ");
-			}
-			System.out.println();
-		}
-		return grid;
-	}
-	
-	private static int getRandomValue () {
-		int value = (int) (Math.random() * (MAX_VALUE - MIN_VALUE));
-		return MIN_VALUE+value;
-	}
-	
 	public static void main (String[] args) {
-		int[][] grid = buildSampleGrid(5, 5);
-		findMaxPathRecursive(grid);
-		findMaxPathDP(grid);
+		findMaxPath (buildSampleGrid(5, 5));
 	}
 	
-	private static void findMaxPathRecursive (int[][] grid) {
-		int maxVal = findMaxPathRecursive(grid, 0, 0);
-		System.out.println("Max-path recursive = "+maxVal);
+	protected static void findMaxPath (int[][] grid) {
+		com.intprep.recursion.problems.MaxPath.findMaxPath(grid);
+		int max = findMaxPathUsingDP (grid);
+		System.out.println("Max-path using dynprog = "+max);
 	}
 	
-	private static int findMaxPathRecursive (int[][] grid, int r, int c)	{
-		if (r == grid.length || c == grid[0].length)
-			return 0;
-		else
-			return grid[r][c] + Math.max(findMaxPathRecursive (grid, r+1, c), 
-											findMaxPathRecursive (grid, r, c+1));
+	private static int findMaxPathUsingDP (int[][] grid) {
+		int N = grid.length;
+		int M = grid[0].length;
+		// 1. initialize
+		int[][] dpt = new int[N+1][M+1];
+		// 2. pre-populate
+		for (int c = 0; c <= M; c++) dpt[N][c] = 0;
+		for (int r = 0; r <= N; r++) dpt[r][M] = 0;
+		// 3. populate
+		for (int r = N-1; r >= 0; r--)
+			for (int c = M-1; c >= 0; c--)
+				dpt[r][c] = grid[r][c] + Math.max(dpt[r][c+1], dpt[r+1][c]);
+		// 4. return
+		return dpt[0][0];
 	}
-	
-	private static void findMaxPathDP (int[][] grid) {
-		int[][] dptab = new int[grid.length+1][grid[0].length+1];
-		for (int i = 0; i < grid.length; i++)
-			for (int j = 0; j < grid[0].length; j++)
-				dptab[i][j] = 0;
-		for (int i = grid.length-1; i >= 0; i--)
-			for (int j = grid[0].length-1; j >= 0; j--)
-				dptab[i][j] = grid[i][j] + Math.max(dptab[i][j+1], dptab[i+1][j]);
-		System.out.println("Max-path dynamic prog = "+dptab[0][0]);
-	}
-	
-	private static final int MIN_VALUE = 10;
-	private static final int MAX_VALUE = 99;
 }

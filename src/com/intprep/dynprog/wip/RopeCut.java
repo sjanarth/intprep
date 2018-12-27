@@ -1,4 +1,4 @@
-package com.intprep.dynprog;
+package com.intprep.dynprog.wip;
 
 import java.util.Arrays;
 

@@ -3,7 +3,7 @@ package com.intprep.recursion.problems;
 public class Subsets 
 {
 	public static void main (String[] args) {
-		printSubsetsMain ("wxy");
+		printSubsetsMain ("abcd");
 	}
 	
 	private static void printSubsetsMain (String s) {
