@@ -104,7 +104,7 @@ public class BaseTreeNode<T>
 	
 	@Override
 	public String toString()	{
-		return value != null ? value.toString() : null;
+		return value != null ? value.toString() : "";
 	}
 	
 	public String toString2()	{

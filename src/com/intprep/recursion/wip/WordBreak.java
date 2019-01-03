@@ -28,11 +28,30 @@ public class WordBreak
 		breakWords (new String[] {"kick","start","kickstart","is","awe","some","awesome"}, "kickstartisawesome");
 	}
 	
-	protected static String[] breakWords(String[] dict, String text)	{
-		Set<String> dictSet = new HashSet<String>();
-		for (String w : dict) dictSet.add(w);
-		String[] subs = getAllSubstrings (text);
-		return null;
+	protected static void breakWords(String[] dic, String text)	{
+		Set<String> dict = new HashSet<String>();
+		for (String w : dic) dict.add(w);
+		List<List<String>> choices = new ArrayList<List<String>>();
+		breakWords (dict, text, choices);
+		for (List<String> choice : choices) {
+			for (String c : choice) {
+				System.out.print(c+" ");
+			}
+			System.out.println();
+		}
+	}
+	
+	private static void breakWords (Set<String> dict, String text, List<List<String>> choices)	{
+		for (int i = 0; i <= text.length(); i++) {
+			String s = text.substring(0, i);
+			if (dict.contains(s))	{
+				List<String> choice = new ArrayList<String>();
+				choice.add(s);
+				choice.add(text.substring(i));
+				choices.add(choice);
+				//breakWords (dict, text.substring(i+1), choice);
+			}
+		}
 	}
 	
 	private static String[] getAllSubstrings (String s) {

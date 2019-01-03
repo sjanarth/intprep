@@ -20,6 +20,7 @@ public class EditDistance
 		findEditDistance ("bat", "at");		// delete
 		findEditDistance ("bat", "cat");		// replace
 		findEditDistance ("bat", "boil");		
+		findEditDistance ("eclipse", "ellipse");
 	}
 	
 	protected static void findEditDistance (String s1, String s2)	{

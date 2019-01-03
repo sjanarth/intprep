@@ -122,7 +122,7 @@ public class ClosestLeaf extends AbstractTreeProblem
     	String[] path1Arr = path1.split(DELIM);
     	String[] path2Arr = path2.split(DELIM);
     	int i = 0;
-    	while (i < path1Arr.length && i < path2Arr.length && path1Arr[i] == path2Arr[i]) {
+    	while (i < path1Arr.length && i < path2Arr.length && path1Arr[i].equals(path2Arr[i])) {
     		i++;
     	}
     	return i;

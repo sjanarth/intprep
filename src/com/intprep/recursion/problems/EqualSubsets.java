@@ -16,7 +16,7 @@ public class EqualSubsets
 	private static void findEqualSubsets (Integer[] arr) {
 		System.out.println("Equal subsets ("+toString(arr)+"):");
 		int sum = getSum (arr);
-		if ((sum%2) == 1) {
+		if ((sum%2) != 0) {
 			System.out.println("Input set adds up to an odd sum");
 			return;
 		} else {

@@ -9,11 +9,15 @@ public class Fibonacci
 		fibonacci (10);
 	}
 	
-	private static void fibonacci (int n) {
+	protected static void fibonacci (int n) {
+		long start = System.nanoTime();
 		int fibo = fibonacciNoMemo (n);
-		System.out.println("fibonacci("+n+") = "+fibo);
+		long end = System.nanoTime();
+		System.out.println("fibonacci("+n+") = "+fibo+" ("+(end-start)/1000000+"millis)");
+		start = System.nanoTime();
 		int fibo2 = fibonacciWithMemo (n, new HashMap<Integer,Integer>());
-		System.out.println("fibonacci with memo("+n+") = "+fibo2);
+		end = System.nanoTime();
+		System.out.println("fibonacci with memo("+n+") = "+fibo2+" ("+(end-start)/1000+"micros)");
 	}
 	
 	private static int fibonacciNoMemo (int n) {
