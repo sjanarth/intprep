@@ -1,58 +1,29 @@
 package com.intprep.trees.core;
 
-public class LevelOrderIterator<T> extends AbstractIterator<T>
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class LevelOrderIterator<T> implements Iterator<BinaryTreeNode<T>>
 {
-	public LevelOrderIterator(BinaryTreeNode<T> node, int tgtlevel) {
-		targetLevel = tgtlevel;
-		currentNode = node;
-		currentLevel = 1;
-		pullNext();
+	public LevelOrderIterator(BinaryTreeNode<T> node) {
+		queue.add(node);
+	}
+
+	@Override
+	public boolean hasNext() {
+		return !queue.isEmpty();
 	}
 	
 	@Override
 	public BinaryTreeNode<T> next() {
 		if (!hasNext())
 			return null;
-		BinaryTreeNode<T> top = popStack();
-		currentNode = (BinaryTreeNode<T>) currentNode.getParent();
-		currentLevel--;
-		pullNext();
-		return top;
+		BinaryTreeNode<T> head = queue.poll();
+		if (head.hasLeft()) queue.add(head.getLeft());
+		if (head.hasRight()) queue.add(head.getRight());
+		return head;
 	}
-	
-	private void pullNext ()	{
-		if (populate())
-			return;
-		while (currentNode != null) {
-			BinaryTreeNode<T> left = currentNode.getLeft();
-			BinaryTreeNode<T> right = currentNode.getRight();
-			if (left != null && !isProcessed(left))	{
-				currentNode = left;
-				currentLevel++;
-				if (populate()) break;
-				continue;
-			}
-			if (right != null && !isProcessed(right))	{
-				currentNode = right;
-				currentLevel++;
-				if (populate()) break;
-				continue;
-			}
-			process(currentNode);
-			currentNode = (BinaryTreeNode<T>) currentNode.getParent();
-			currentLevel--;
-		}
-	}
-	
-	private boolean populate()	{
-		if (currentLevel == targetLevel && !isProcessed(currentNode))	{
-			stack.push(currentNode);
-			return true;
-		}
-		return false;
-	}
-	
-	private int targetLevel = 0;
-	private int currentLevel = 0;
-	private BinaryTreeNode<T> currentNode = null;
+
+	private Queue<BinaryTreeNode<T>> queue = new LinkedList<BinaryTreeNode<T>>();
 }

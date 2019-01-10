@@ -5,7 +5,6 @@ import java.util.List;
 
 public class UnionAndIntersection 
 {
-	
 	public List<Integer> getUnion (int[] a, int[] b)	{
 		List<Integer> union = new ArrayList<Integer> ();
 		int aind = 0;

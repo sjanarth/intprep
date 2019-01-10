@@ -11,18 +11,12 @@ public class PostOrderIterator<T> extends AbstractIterator<T>
 		if (!hasNext())
 			return null;
 		BinaryTreeNode<T> top = popStack();
-		BinaryTreeNode<T> curr = top;
-		while (curr != null) {
-			BinaryTreeNode<T> left = curr.getLeft();
-			BinaryTreeNode<T> right = curr.getRight();
-			if (left != null && !isProcessed(left))	{
-				pushLeft(left); break;
-			} else if (right != null && !isProcessed(right))	{
-				pushLeft(right); break;
-			} else if (!isProcessed(curr))	{
-				break;
+		if (!stack.isEmpty()) {
+			BinaryTreeNode<T> next = stack.peek();
+			BinaryTreeNode<T> right = next.getRight();
+			if (right != null && !isProcessed(right))	{
+				pushLeft(right);
 			}
-			curr = (BinaryTreeNode<T>) curr.getParent();
 		}
 		return top;
 	}

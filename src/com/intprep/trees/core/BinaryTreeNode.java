@@ -2,6 +2,8 @@ package com.intprep.trees.core;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class BinaryTreeNode<T> extends BaseTreeNode<T>
 {
@@ -90,19 +92,17 @@ public class BinaryTreeNode<T> extends BaseTreeNode<T>
 		return sb.toString();
 	}
 
-	private String getLevelOrderString(int start, int level)	{
-		if (start == level)
-			return getValue()+" ";
+	private String getLevelOrderString ()	{
+		Queue<BinaryTreeNode<T>> queue = new LinkedList<BinaryTreeNode<T>>();
 		StringBuilder sb = new StringBuilder();
-		if (getLeft() != null)
-			sb.append(getLeft().getLevelOrderString(start+1, level));
-		if (getRight() != null)
-			sb.append(getRight().getLevelOrderString(start+1, level));
+		queue.add(this);
+		while (!queue.isEmpty()) {
+			BinaryTreeNode<T> curr = queue.poll();
+			sb.append(curr.getValue()+" ");
+			if (curr.hasLeft()) queue.add(curr.getLeft());
+			if (curr.hasRight()) queue.add(curr.getRight());
+		}
 		return sb.toString();
-	}
-
-	public String getLevelOrderString(int level)	{
-		return getLevelOrderString(1, level);
 	}
 
 	public Iterator<BinaryTreeNode<T>> getPreOrderIterator ()	{
@@ -117,8 +117,8 @@ public class BinaryTreeNode<T> extends BaseTreeNode<T>
 		return new PostOrderIterator<T>(this);
 	}
 
-	public Iterator<BinaryTreeNode<T>> getLevelOrderIterator (int level)	{
-		return new LevelOrderIterator<T>(this, level);
+	public Iterator<BinaryTreeNode<T>> getLevelOrderIterator ()	{
+		return new LevelOrderIterator<T>(this);
 	}
 
 	public boolean isBalanced ()	{
@@ -159,8 +159,8 @@ public class BinaryTreeNode<T> extends BaseTreeNode<T>
 		printTree ("PreOrder", root.getPreOrderIterator());
 		System.out.println("PostOrder: "+root.getPostOrderString());
 		printTree ("PostOrder", root.getPostOrderIterator());
-		System.out.println("LevelOrder: "+root.getLevelOrderString(3));
-		printTree ("LevelOrder", root.getLevelOrderIterator(3));
+		System.out.println("LevelOrder: "+root.getLevelOrderString());
+		printTree ("LevelOrder", root.getLevelOrderIterator());
 		System.out.println("Height="+root.getHeight());
 	}
 }

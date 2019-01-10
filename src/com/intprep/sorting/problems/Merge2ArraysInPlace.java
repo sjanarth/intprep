@@ -16,7 +16,7 @@ package com.intprep.sorting.problems;
 		
 public class Merge2ArraysInPlace
 {
-    private static void merger_first_into_second(int[] arr1, int[] arr2) {
+    private static void mergeSortedArrays(int[] arr1, int[] arr2) {
     	int n = arr1.length;
     	// Start merging from the end. 
     	int last1 = n - 1;
@@ -42,7 +42,7 @@ public class Merge2ArraysInPlace
 	public static void main (String[] args) {
 		int[] arr1 = new int[] {3,7,9,11,14,22};
 		int[] arr2 = new int[] {1,5,9,19,23,36,0,0,0,0,0,0};
-		merger_first_into_second (arr1, arr2);
+		mergeSortedArrays (arr1, arr2);
 		for (int m : arr2)
 			System.out.print(m+" ");
 	}

@@ -1,28 +1,24 @@
 package com.intprep.realqs;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Map;
 
 public class LRUCache 
 {
 	public static void main (String args[])	{
+		String[] values = new String[] {"cat", "dog", "squirrel", "cat", "parrot", "dog", "cat"};
 		LRUCacheOrderN lc = new LRUCacheOrderN();
-		System.out.print("cat: "+lc.isDuplicate("cat")); lc.print();
-		System.out.print("dog: "+lc.isDuplicate("dog")); lc.print();
-		System.out.print("squirrel: "+lc.isDuplicate("squirrel")); lc.print();
-		System.out.print("cat: "+lc.isDuplicate("cat")); lc.print();
-		System.out.print("squirrel: "+lc.isDuplicate("squirrel")); lc.print();
-		System.out.print("parrot: "+lc.isDuplicate("parrot")); lc.print();
-		System.out.print("dog: "+lc.isDuplicate("dog")); lc.print();
-		System.out.print("cat: "+lc.isDuplicate("cat")); lc.print();
+		for (String s : values)	{
+			System.out.print(s+": "+lc.check(s)); 
+			lc.print();
+			System.out.println();
+		}
 	}
 }
 
 class LRUCacheOrderN	{
 	private LinkedList<String> cache = new LinkedList<String>();
-	public boolean isDuplicate (String input)	{
+	public boolean check (String input)	{
 		if (cache.contains(input))	{
 			cache.remove(input);
 			cache.addFirst(input);
@@ -35,9 +31,10 @@ class LRUCacheOrderN	{
 		}
 	}
 	public void print ()	{
-		System.out.print("    [");
+		StringBuilder sb = new StringBuilder("    [");
 		for (Iterator<String> it = cache.listIterator(); it.hasNext();)
-			System.out.print(" => "+it.next());
-		System.out.println("]");
+			sb.append(" => "+it.next());
+		sb.append("]");
+		System.out.print(sb.toString());
 	}
 }
