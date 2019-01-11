@@ -26,24 +26,16 @@ public class IsBinarySearchTree extends AbstractTreeProblem
 	}
     
 	private static boolean isBST (Node root) {
-		return isBSTHelper (root, Integer.MIN_VALUE, Integer.MAX_VALUE); 
+		// Since our tree stores integers, we have to go beyond the integer range, hence the use of longs
+		// According to wikipedia, a BST cannot have duplicate values.
+		return isBST (root, Long.MIN_VALUE, Long.MAX_VALUE); 
 	}
 
-	private static boolean isBSTHelper (Node node, Integer min, Integer max) {
-		if (node == null)	{
-			return true;
-		}
-		if (node.data < min || node.data > max) {
-			return false;
-		}
-		if (node.left != null)	{
-			if (!isBSTHelper(node.left, min, node.data-1))
-				return false;
-		}
-		if (node.right != null)	{
-			if (!isBSTHelper(node.right, node.data+1, max))
-				return false;
-		}
-		return true;
+	private static boolean isBST (Node node, Long min, Long max) {
+		if (node == null)	return true;
+		return (min < node.data &&
+				max > node.data &&
+				isBST (node.left, min, new Long(node.data)) &&
+				isBST (node.right, new Long(node.data), max));
     }
 }
