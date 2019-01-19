@@ -9,25 +9,20 @@ import java.util.Set;
 public class StringUtils 
 {
 	public static String getBinary(int x)	{
+		return Integer.toBinaryString(x);
+		/*
 		StringBuilder sb = new StringBuilder();
-		int mask = 0x40000000;
-		while (mask > 0) {
-			//System.out.println("   "+(x&mask));
+		for (int mask = 0x40000000; mask > 0; mask >>= 1)
 			sb.append( (x&mask) > 0 ? "1" : "0");
-			mask = mask >> 1;
-		}
 		return sb.toString();
+		*/
 	}
 	
 	public static boolean isAllUniqueChars (String s) {
-		Set<Character> uniq = new HashSet<Character> ();
-		for (int i = 0; i < s.length(); i++)	{
-			char ch = s.charAt(i);
-			if (uniq.contains(ch))	{
+		char ch = s.charAt(0);
+		for (int i = 1; i < s.length(); i++) 
+			if (ch != s.charAt(i)) 
 				return false;
-			}
-			uniq.add(ch);
-		}
 		return true;
 	}
 	

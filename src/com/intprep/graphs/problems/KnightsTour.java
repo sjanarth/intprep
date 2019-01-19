@@ -28,7 +28,7 @@ import com.intprep.graphs.core.Position;
 public class KnightsTour 
 {
 	public static void main (String[] args) {
-		findShortestPath (8, new Position(3,4), new Position(5,1));
+		findShortestPath (8, new Position(3,4),	 new Position(5,1));
 		findShortestPath (8, new Position(0,0), new Position(7,7));
 	} 
 	
