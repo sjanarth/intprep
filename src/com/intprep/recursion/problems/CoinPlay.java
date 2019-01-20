@@ -15,7 +15,7 @@ import java.util.Map;
  * Input Format:
  * 		You will be given an array of integers, v
  * Output Format:
- * 		Return an integer denoting the maximum possible amount of sum that you can accumulate.
+ * 		Return an integer denoting the maximum possible amount of sum that can be accumulated.
  * 
  * Example:
  *  
