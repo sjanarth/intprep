@@ -4,9 +4,12 @@ public class TreesExecutor
 {
 	private static AbstractTreeProblem[] problems = {
 		new BSTToLinkedList(),	
+		new CloneTree(),
 		new ClosestLeaf(),
+		new ConnectSiblings(),
 		new DeepestLeaf(),
 		new DistanceBetweenNodes(),
+		new FlipBinaryTree(),
 		new IsBinarySearchTree(),
 		new IsBinarySearchTree2(),
 		new IsSubTree(),
@@ -17,8 +20,8 @@ public class TreesExecutor
 		new LongestLeafToLeafPath(),
 		new LowestCommonAncestor(),
 		new MergeTwoBSTs(),
+		new RebuildTree(),
 		new SortedArrayToBST(),
-		new FlipBinaryTree(),
 	};
 	
 	public static void main (String[] args) {

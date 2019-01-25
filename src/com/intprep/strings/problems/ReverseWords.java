@@ -4,13 +4,13 @@ public class ReverseWords
 {
 	public static void main(String[] args) {
 		reverseWords ("hello world");
-		reverseWords ("bon voyage!");
+		reverseWords ("bonvoyage!");
 	}
 	
 	private static void reverseWords (String s) {
 		String s2 = reverseSentence (s.toCharArray());
-		s2 = reverseWordsInPlace (s.toCharArray());
-		System.out.println(s+" => "+s2);
+		String s3 = reverseWordsInPlace (s2.toCharArray());
+		System.out.println(s+" => "+s3);
 	}
 	
 	private static String reverseSentence (char[] input) {
@@ -30,6 +30,7 @@ public class ReverseWords
 	}
 	
 	private static String reverseWordsInPlace(char[] input) {
+		//System.out.println("reverse="+String.valueOf(input));
 		int start = 0;
 		while (start < input.length) {
 			while (start < input.length && input[start] == ' ') start++;
@@ -37,7 +38,9 @@ public class ReverseWords
 			while (end < input.length && input[end] != ' ') end++;
 			end--;
 			int end2 = end+1;
+			//System.out.println("start="+start+",end="+end+",end2="+end2);
 			while (start < end && end < input.length) {
+				//System.out.println("swapping "+start+", "+end);
 				swap(input, start, end);
 				start++;
 				end--;

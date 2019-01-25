@@ -11,6 +11,7 @@ public abstract class AbstractTreeProblem
 		int data;
         Node left;
         Node right;
+        Node next;	// Used only in ConnectSiblings
         public Node (int d)	{ data = d; }
     }
 	
