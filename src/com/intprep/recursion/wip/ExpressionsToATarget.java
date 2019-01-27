@@ -1,20 +1,26 @@
 package com.intprep.recursion.wip;
 
-public class ExpressionsToATarget // incomplete
+import java.util.ArrayList;
+import java.util.List;
+
+public class ExpressionsToATarget
 {
-	/*
-	private static int[][] gatherAllPermutations (int[] input, int i)	{
-		if (i == input.length) {
-			
+	public static void main (String[] args) {
+		findExpressions("222", 24);
+	}
+	
+	private static void findExpressions (String s, int target)	{
+		System.out.println("Inputs: s="+s+", target="+target);
+		System.out.println("Output:");
+		List<String> exprs = new ArrayList<String>(); 
+		findExpressions (s, target, 1, exprs);
+		for (String exp : exprs)	{
+			System.out.println(exp);
 		}
 	}
-	*/
 	
-	private static void printExpressionsMain (int[] input, String ops, int target)	{
-		//int[][] permutations = gatherAllPermutations (input, 0);
-	}
-	
-	public static void main (String[] args) {
-		printExpressionsMain (new int[] {3,2,5,1}, ".*+", 8);
+	private static void findExpressions (String s, int target, int k, List<String> output) {
+		for (int i = k; i < s.length(); i++) {
+		}
 	}
 }
