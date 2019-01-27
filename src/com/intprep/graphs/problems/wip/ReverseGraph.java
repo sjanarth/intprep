@@ -1,4 +1,4 @@
-package com.intprep.graphs.problems;
+package com.intprep.graphs.problems.wip;
 
 import java.util.HashSet;
 import java.util.LinkedList;
