@@ -3,8 +3,8 @@ package com.intprep.dynprog;
 public class Robbery extends com.intprep.recursion.problems.Robbery 
 {
 	public static void main (String[] args) {
-		//findMaxRobValue (new int[] {6,1,2,7});
-		//findMaxRobValue (new int[] {26,1,22,77});
+		findMaxRobValue (new int[] {6,1,2,7});
+		findMaxRobValue (new int[] {26,1,22,77});
 	}
 	
 	protected static void findMaxRobValue (int[] values) {
