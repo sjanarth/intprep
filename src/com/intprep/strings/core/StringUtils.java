@@ -1,5 +1,6 @@
 package com.intprep.strings.core;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -114,7 +115,22 @@ public class StringUtils
 		return substrs;
 	}
 	
+	public static Set<String> getAllSubsequences (String input)	{
+		Set<String> substrs = getAllSubstrings(input);
+		Set<String> subseqs = new LinkedHashSet<String>();
+		subseqs.addAll(substrs);
+		for (String sub : substrs)	{
+			for (int k = 1; k < sub.length() - 1; k++)	{
+				StringBuilder sb = new StringBuilder(sub);
+				sb.deleteCharAt(k);
+				subseqs.add(sb.toString());
+			}
+		}
+		return subseqs;
+	}
+	
 	public static void main (String[] args)	{
+		/*
 		String[] strings = new String[] { "yellow", "blue", "green", "water", "test", "tomato", "harbor"};
 		String[] strings2 = new String[] { "llyeow", "ue", "eenrg", "tewar", "tets", "totmato", "hartbor"};
 		//for (String s : strings)
@@ -130,5 +146,9 @@ public class StringUtils
 			x = x << 1;
 		}
 		System.out.println(Integer.MAX_VALUE);
+		*/
+		for (String s : getAllSubstrings ("abcd")) System.out.println(s);
+		System.out.println("------------------------");
+		for (String s : getAllSubsequences ("abcd")) System.out.println(s);
 	}
 }
