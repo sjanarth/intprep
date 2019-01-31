@@ -1,8 +1,9 @@
-package com.intprep.graphs.problems.wip;
+package com.intprep.graphs.problems;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -20,40 +21,62 @@ import java.util.Stack;
 public class FindCycles2 
 {
 	public static void main(String[] args) {
-		boolean hasCycle = hasCycle(5, 6, buildSampleGraph());
+		boolean hasCycle = hasCycle(5, 7, buildSampleGraph());
 		System.out.println();
 		System.out.println("hasCycle = "+hasCycle);
 	}
 	
 	public static boolean hasCycle(int N, int M, List<List<Integer>> edges) {
 		Map<Integer,List<Integer>> graph = edgesToGraph(edges);
-		return hasCycle(graph, new Stack<Integer>(), new HashSet<Integer>());
+		return hasCycle(graph);
 	}
 	
-	private static boolean hasCycle (Map<Integer,List<Integer>> graph, Stack<Integer> stack, Set<Integer> visited)	{
-		for (Integer i : graph.keySet()) {
-			if (hasCycle(i, graph, stack, visited))
+	private static boolean hasCycle (Map<Integer,List<Integer>> graph)	{
+		Stack<Integer> stack = new Stack<Integer>();
+		Set<Integer> visited = new HashSet<Integer>();
+		Map<Integer,Integer> backRefs = new HashMap<Integer,Integer>();
+		for (Integer i : graph.keySet()) 
+			if (hasCycle(i, graph, stack, visited, backRefs))
 				return true;
-		}
 		return false;
 	}
 	
-	private static boolean hasCycle (Integer i, Map<Integer,List<Integer>> graph, Stack<Integer> stack, Set<Integer> visited)	{
-		if (stack.contains(i)) 
+	private static boolean hasCycle (Integer i, 
+									Map<Integer,List<Integer>> graph, 
+									Stack<Integer> stack, 
+									Set<Integer> visited, 
+									Map<Integer,Integer> backRefs)	{
+		if (stack.contains(i)) {
+			System.out.println();
+			printCycle(backRefs, i);
 			return true;
+		}
 		if (!visited.contains(i))	{
 			System.out.print(i+" ");
 			stack.push(i);
 			visited.add(i);
 			if (graph.containsKey(i))	{
 				for (Integer n : graph.get(i))	{
-					if (hasCycle(n, graph, stack, visited))
+					backRefs.put(n, i);
+					if (hasCycle(n, graph, stack, visited, backRefs))
 						return true;
 				}
 			}
 			stack.remove(i);
 		}
 		return false;
+	}
+	
+	private static void printCycle (Map<Integer,Integer> backRefs, Integer i)	{
+		StringBuilder sb = new StringBuilder();
+		Integer curr = i;
+		Set<Integer> visited = new HashSet<Integer>();
+		while (!visited.contains(curr)) {
+			sb.append(curr+" ");
+			visited.add(curr);
+			curr = backRefs.get(curr);
+		}
+		System.out.println(sb.reverse().toString());
 	}
 	
 	private static Map<Integer,List<Integer>> edgesToGraph (List<List<Integer>> edges)	{
@@ -77,6 +100,7 @@ public class FindCycles2
 		List<Integer> e4 = new ArrayList<Integer>(); e4.add(1); e4.add(2); edges.add(e4);
 		List<Integer> e5 = new ArrayList<Integer>(); e5.add(4); e5.add(1); edges.add(e5);
 		List<Integer> e6 = new ArrayList<Integer>(); e6.add(0); e6.add(4); edges.add(e6);
+		List<Integer> e7 = new ArrayList<Integer>(); e7.add(3); e7.add(0); edges.add(e7);
 		return edges;
 	}
 }
