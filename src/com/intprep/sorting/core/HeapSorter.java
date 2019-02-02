@@ -4,11 +4,11 @@ public class HeapSorter extends AbstractSorter
 {
 	@Override
 	protected int[] sort(int[] input) {
-		int size = input.length;
-		for (int i=size/2-1; i >= 0; i--)
-			heapify (input, size, i);
+		int N = input.length;
+		for (int i=N/2-1; i >= 0; i--)
+			heapify (input, N, i);
 		//printArray ("MaxHeap", input);
-		for (int i = size-1; i >= 0; i--)	{
+		for (int i = N-1; i >= 0; i--)	{
 			swap (input, i, 0);
 			heapify (input, i, 0);
 		}

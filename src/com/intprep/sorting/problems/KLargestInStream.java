@@ -1,5 +1,6 @@
 package com.intprep.sorting.problems;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Set;
@@ -21,6 +22,8 @@ import java.util.TreeSet;
 
 public class KLargestInStream 
 {
+	// Time:  o(n2) -- every element is compared with every other
+	// Space: o(n)  -- tree set to hold the entire data set in sorted order
 	private static int[] topK(int[] arr, int k)	{
 		Set<Integer> set = new TreeSet<Integer>(Collections.reverseOrder());
 		for (int i : arr)
@@ -34,8 +37,34 @@ public class KLargestInStream
 		return output;
 	}
 	
+	// Time:  o(n*k) -- every element is compared with at most K elements
+	// Space: o(k)   -- the sliding window only has K elements
+	private static int[] topK2(int[] arr, int k) {
+		Integer[] result = new Integer[k];
+		for (int i = 0; i < k; i++) result[i] = arr[i];
+		Arrays.sort(result, Collections.reverseOrder());
+		System.out.println(Arrays.toString(result));
+		int i = k;
+		while (i < arr.length) {
+			for (int j = 0; j < k; j++)	{
+				if (result[j] < arr[i]) {
+					for (int j2 = result.length-1; j2 > j; j2--)	{
+						result[j2] = result[j2-1];
+					}
+					result[j] = arr[i];
+					System.out.println(Arrays.toString(result));
+					break;
+				}
+			}
+			i++;
+		}
+		int[] result2 = new int[result.length];
+		for (i = 0; i < result.length; i++) result2[i] = result[i];
+		return result2;
+	}
+	
 	public static void main (String[] args)	{
-		int[] output = topK (new int[] {25,15,4,3,100,90,80,75,56,42,11,9,92,43,31}, 5);
+		int[] output = topK2 (new int[] {25,15,4,3,100,90,80,75,56,42,11,9,92,43,31}, 5);
 		for (int i : output)
 			System.out.print(i+" ");
 	}

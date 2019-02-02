@@ -55,9 +55,9 @@ public class Intersection
         while(np1 < arr1.length && np2 < arr2.length ){
             if(arr1[np1] < arr2[np2]){
                 np1++;
-            }else if(arr1[np1] > arr2[np2]){
+            } else if(arr1[np1] > arr2[np2]){
                 np2++;
-            }else{
+            } else{
                 res.add(arr1[np1]);
                 np1++;
                 np2++;
