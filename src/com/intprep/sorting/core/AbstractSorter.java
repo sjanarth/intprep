@@ -3,13 +3,13 @@ package com.intprep.sorting.core;
 public abstract class AbstractSorter 
 {
 	public void sortMain (int[] input)	{
-		printArray("Input", input);
-		long start = System.nanoTime();
+		System.out.println(this.getClass().getSimpleName());
+		printArray("    Input", input);
+		long start = System.nanoTime() / 1000;
 		int[] output = sort(input);
-		long end = System.nanoTime();
-		printArray("Output", output);
-		System.out.println(this.getClass().getSimpleName()+" Runtime: "+(end-start)+"ns");
-		System.out.println();
+		long end = System.nanoTime() / 1000;
+		printArray("    Output", output);
+		System.out.println("    Runtime: "+(end-start)+" us");
 	}
 
 	protected abstract int[] sort (int[] input);

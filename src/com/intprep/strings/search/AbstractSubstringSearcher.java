@@ -3,17 +3,17 @@ package com.intprep.strings.search;
 public abstract class AbstractSubstringSearcher 
 {
 	public void searchMain(String text, String pattern) {
-		System.out.println("Text = ["+text+"]");
-		System.out.println("Pattern = ["+pattern+"]");
+		System.out.println(this.getClass().getSimpleName());
+		long start = System.nanoTime() / 1000;
 		Integer[] indices = searchSubstring(text, pattern);
+		long end = System.nanoTime() / 1000;
 		if (indices.length == 0)	{
-			System.out.println(this.getClass().getSimpleName()+": No matches found ");
-			System.out.println();
+			System.out.println("    No matches found ("+(end-start)+"us)");
 		} else {
-			System.out.print(this.getClass().getSimpleName()+": Matching indices = { ");
+			System.out.print("    Matching indices: { ");
 			for (Integer i : indices) System.out.print(i+" ");
-			System.out.println("}");
-			System.out.println();
+			System.out.println("} ");
+			System.out.println("    Runtime: "+(end-start)+" us");
 		}
 	}
 	
