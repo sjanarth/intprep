@@ -7,7 +7,7 @@ import java.util.List;
  * Repeatedly call String.indexOf() to gather a list of
  * indices in the original text that have the given pattern.
  * 
- * Time complexity:  o(m*n)
+ * Time complexity:  o(n*m)
  * Space complexity: o(1)
  */
 public class JavaSubstringSearcher extends AbstractSubstringSearcher 

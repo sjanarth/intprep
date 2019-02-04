@@ -7,7 +7,7 @@ import java.util.List;
  * Looks for pattern at every possible index in the given text.
  * This is the most basic brute force pattern matching algorithm.
  * 
- * Time complexity:  o(m*n)
+ * Time complexity:  o(n*m)
  * Space complexity: o(1)
  */
 public class NaiveSubstringSearcher extends AbstractSubstringSearcher 

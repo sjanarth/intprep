@@ -9,13 +9,13 @@ import java.util.List;
  * 1. Pre-process the given pattern by finding every proper 
  *    prefix of the pattern and finding the length of the 
  *    longest prefix of the prefix that is also a suffix of the 
- *    prefix and notes down the length of such prefixes.
+ *    prefix and noting down the length of such prefixes.
  *     
- * 2. Parses the given text and when there is a mismatch
- *    consults the prefix table to reset to the pointer in the
+ * 2. Parse the given text and when there is a mismatch
+ *    consult the prefix table to reset the pointer in the
  *    PATTERN to an index that skips unnecessary comparisons. 
  *    
- *    Time complexity:  o(m+n)
+ *    Time complexity:  o(n+m)
  *    Space complexity: o(n)
  *  
  * References:
@@ -51,8 +51,6 @@ public class KMPSubstringSearcher extends AbstractSubstringSearcher
 	/*
 	 * For each proper prefix of patternChars finds the length of the 
 	 * longest prefix of the prefix that is also a suffix of the prefix.
-	 * 
-	 * Returns the size of the longest prefixes for each proper prefix of patternChars.
 	 * 
 	 * LPS(k) = longest prefix of the substring ending at k
 	 *          that is also a suffix of the substring

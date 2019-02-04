@@ -17,10 +17,11 @@ import java.util.TreeSet;
  * the suffix tree/array of the text and once available, any searches on it
  * can be performed in o(n) time, i.e, the length of the pattern to be matched.
  * 
- * Time complexity:  o(m) fixed cost + o(n) search cost
- * Space complexity: 
+ * Time complexity:  o(n^2logn) fixed cost + o(logn*m) search cost
+ * Space complexity: o(n^2)
  * 
  * References:
+ * 	 https://web.stanford.edu/class/cs97si/suffix-array.pdf
  * 	 https://www.geeksforgeeks.org/pattern-searching-using-suffix-tree/
  * 	 https://www.geeksforgeeks.org/suffix-array-set-1-introduction/
  */
@@ -34,10 +35,10 @@ public class SuffixArraySubstringSearcher extends AbstractSubstringSearcher
 		long end = System.nanoTime() / 1000;
 		System.out.println("    Runtime to build suffix array: "+(end-start)+" us");
 		List<Integer> matches = new ArrayList<Integer>();
-		int left = 0, right = suffixes.length - 1, n = pattern.length();
+		int left = 0, right = suffixes.length - 1, m = pattern.length();
 		while (left < right)	{
 			int mid = left + (right - left) / 2;
-			int len = n > suffixes[mid].suffix.length() ? suffixes[mid].suffix.length() : n; 
+			int len = m > suffixes[mid].suffix.length() ? suffixes[mid].suffix.length() : m; 
 			String sub = suffixes[mid].suffix.substring(0, len);
 			int comp = sub.compareTo(pattern); 
 			//System.out.println("    left="+left+",mid="+mid+",right="+right+",sub="+sub+",comp="+comp);
@@ -47,12 +48,22 @@ public class SuffixArraySubstringSearcher extends AbstractSubstringSearcher
 				left = mid + 1;
 			} else {
 				matches.add(suffixes[mid].position);
-				while (mid >= 0 && comp == 0) {
-					mid--;
-					sub = suffixes[mid].suffix.substring(0, n);
+				left = mid;
+				while (left >= 0 && comp == 0) {
+					left--;
+					sub = suffixes[left].suffix.substring(0, m);
 					comp = sub.compareTo(pattern);
 					if (comp == 0)	{
-						matches.add(suffixes[mid].position);
+						matches.add(suffixes[left].position);
+					}
+				}
+				right = mid;
+				while (right < suffixes.length && comp == 0) {
+					right++;
+					sub = suffixes[right].suffix.substring(0, m);
+					comp = sub.compareTo(pattern);
+					if (comp == 0)	{
+						matches.add(suffixes[right].position);
 					}
 				}
 				break;
@@ -67,15 +78,16 @@ public class SuffixArraySubstringSearcher extends AbstractSubstringSearcher
 		public Suffix (String s, int pos) { suffix = s; position = pos; }
 		public String toString() { return "{"+suffix+","+position+"}"; }
 		public static Comparator<Suffix> getComparator () { return comp; }
+		
 		private String suffix = null;
 		private Integer position = -1;
 		private static Comparator<Suffix> comp = 
-				new java.util.Comparator<Suffix> () {
-							@Override
-							public int compare(Suffix o1, Suffix o2) {
-								return o1.suffix.compareTo(o2.suffix);
-							}
-						};
+			new java.util.Comparator<Suffix> () {
+						@Override
+						public int compare(Suffix o1, Suffix o2) {
+							return o1.suffix.compareTo(o2.suffix);
+						}
+					};
 	}
 	
 	private Suffix[] buildSuffixArray (String text) {
