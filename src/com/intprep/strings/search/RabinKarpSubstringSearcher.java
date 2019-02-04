@@ -6,37 +6,42 @@ import java.util.List;
 import java.util.Map;
 
 /*
- * https://www.youtube.com/watch?v=H4VrKHVG5qI
+ * Rabin-Karp is an optimized version of the simple hash based substring searcher.
+ * At the heart of Rabin-Karp lies the idea of rolling hashes which are far
+ * more efficient to compute than a full on simple hash from scratch.
+ * See the simpleHash and rollingHash APIs below to get a handle of this idea.
+ * 
+ * Time complexity:  o(m+n)
+ * Space complexity: o(n)
+ * 
+ * References:
+ * 	 https://www.youtube.com/watch?v=H4VrKHVG5qI
  */
 public class RabinKarpSubstringSearcher extends HashBasedSubstringSearcher 
 {
 	/*
-	 * Rabin-Karp is an optimized version of the simple hash based substring searcher.
-	 * At the heart of Rabin-Karp lies the idea of rolling hashes which are far
-	 * more efficient to compute than a full on simple hash from scratch.
-	 * See the simpleHash and rollingHash APIs below to get a handle of this idea.
 	 * 
 	 */
 	@Override
 	protected Integer[] searchSubstring(String text, String pattern) {
 		int k = pattern.length();
 		// Gather all substrings of length = lengthOf(pattern) in "sliding" order of text
-		Map<String,Integer> subs = getAllSubstrings(text, k);
+		Map<String,List<Integer>> subs = getAllSubstrings(text, k);
 		List<Integer> matches = new ArrayList<Integer>();
 		double hashPattern = simpleHash(pattern.toCharArray());
-		System.out.println("    hashPattern: "+hashPattern);
+		//System.out.println("    hashPattern: "+hashPattern);
 		Iterator<String> it = subs.keySet().iterator();
 		String currSub = it.next();
 		double currHash = simpleHash(currSub.toCharArray());
 		//System.out.println("    currSub="+currSub+", currHash="+currHash);
 		if (currHash == hashPattern)	
-			matches.add(subs.get(currSub));
+			matches.addAll(subs.get(currSub));
 		while (it.hasNext())	{
 			String nextSub = it.next();
 			currHash = rollingHash (currHash, currSub.charAt(0), nextSub.toCharArray());
 			//System.out.println("    nextSub="+nextSub+", currHash="+currHash);
 			if (currHash == hashPattern)
-				matches.add(subs.get(nextSub));
+				matches.addAll(subs.get(nextSub));
 			currSub = nextSub;
 		}
 		return matches.toArray(new Integer[0]);

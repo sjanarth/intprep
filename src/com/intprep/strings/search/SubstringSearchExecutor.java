@@ -10,10 +10,8 @@ public class SubstringSearchExecutor
 		new ZSubstringSearcher(),
 		new RabinKarpSubstringSearcher(),
 		new SuffixArraySubstringSearcher(),
-		//new SuffixTrieSubstringSearcher(),
 		//new BoyerMooreSubstringSearcher(),
-		//new AhoCorasikSubstringSearcher(),
-		//new FiniteStateAutomataSubstringSearcher(),
+		//new SuffixTreeSubstringSearcher(),
 	};
 	
 	public static void main (String[] args)	{

@@ -4,7 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*
- * https://www.youtube.com/watch?v=CpZh4eF8QBw&index=1&list=PLrmLmBdmIlpvxhscYQdvfFNWU_pdkG5de
+ * A basic implementation of the Z pattern matching algorithm.
+ * 
+ * 1. Pre-processes the pattern to find the longest substring
+ *    starting at each index that is also a prefix of the pattern
+ *    
+ * 2. Iterates through the "Z-values" from #1 and whenever a z-value
+ *    matches the length of the pattern, that indicates a matching index.
+ *    
+ *    Time complexity:  o(m+n)
+ *    Space complexity: o(n)
+ * 
+ * References:
+ *   https://www.geeksforgeeks.org/z-algorithm-linear-time-pattern-searching-algorithm/
+ * 	 https://www.youtube.com/watch?v=CpZh4eF8QBw&index=1&list=PLrmLmBdmIlpvxhscYQdvfFNWU_pdkG5de
  */
 public class ZSubstringSearcher extends AbstractSubstringSearcher 
 {
@@ -24,28 +37,58 @@ public class ZSubstringSearcher extends AbstractSubstringSearcher
 	}
 	
 	/*
-	 * z(k) = longest substring starting at K which is
-	 * 			also a prefix of the string
+	 * For each index of patternChars finds the 
+	 * longest substring starting at that index 
+	 * which is also a prefix of patternChars.
+	 * 
+	 * Z(k) = longest substring starting at k which 
+	 *        is also a prefix of the string
+	 * 
+	 * Example-1:
+	 * 	 index          0 1 2 3 4 5 6 7 
+	 *   patternChars = a b c d a b c y
+	 *   Returns      = X 0 0 0 3 0 0 0
+	 * 
+	 * Example-2:
+	 * 	 index          0 1 2 3 4 5 6 7 8  
+	 *   patternChars = a b c d a b c d y
+	 *   Returns      = X 0 0 0 4 0 0 0 0 
+	 * 
+	 * Example-3:
+	 * 	 index          0 1 2 3 4 5 6 7 8
+	 *   patternChars = a b c d a c d y c
+	 *   Returns      = X 0 0 0 1 0 0 0 0 
+	 * 
 	 */
 	private int[] findZValues (char[] patternChars)	{
 		int[] zValues = new int[patternChars.length];
 		zValues[0] = 0 ;
-		// TODO: update this to reduce comparisons by reusing zValues we already know of
-		for (int i = 0, j = 1; j < patternChars.length;)	{
-			if (patternChars[i] == patternChars[j])	{
-				int k = j;
-				while (j < patternChars.length && patternChars[i] == patternChars[j]) {
-					i++;
-					j++;
-				}
-				zValues[k] = i;
-				i = 0;
-				j = k + 1;
-			} else {
-				zValues[j] = 0;
-				j++;
-			}
-		}
+		int n = patternChars.length; 
+        // [L,R] make a window which matches with prefix of s 
+        int left = 0, right = 0; 
+        for(int i = 1; i < n; ++i) { 
+            // if i>R nothing matches so we will calculate. 
+            // Z[i] using naive way. 
+            if(i > right){ 
+	            left = right = i; 
+	            while(right < n && patternChars[right - left] == patternChars[right]) 
+	                right++; 
+	            zValues[i] = right - left; 
+	            right--; 
+            } else	{ 
+                int k = i - left; 
+                if(zValues[k] < right - i + 1) { 
+                    zValues[i] = zValues[k]; 
+                } else{ 
+                	left = i; 
+					while(right < n && patternChars[right - left] == patternChars[right]) 
+					    right++; 
+					  
+					zValues[i] = right - left; 
+					right--; 
+                } 
+            } 
+        } 		
 		System.out.print ("    zValues: { ");
 		for (int i = 0; i < zValues.length; i++) 
 			System.out.print(zValues[i]+" ");
@@ -64,4 +107,12 @@ public class ZSubstringSearcher extends AbstractSubstringSearcher
 		System.out.println("    concatWithDelim: "+String.valueOf(textChars2));
 		return textChars2;
 	}
+	
+	public static void main (String[] args)	{
+		ZSubstringSearcher searcher = new ZSubstringSearcher();
+		searcher.findZValues("abcdabcy".toCharArray());
+		searcher.findZValues("abcdabcdy".toCharArray());
+		searcher.findZValues("abcdacdyc".toCharArray());
+	}
+	
 }
