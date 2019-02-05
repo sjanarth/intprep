@@ -129,6 +129,15 @@ public class StringUtils
 		return subseqs;
 	}
 	
+	public static String lcp (String s1, String s2)	{
+		int n = Math.min(s1.length(), s2.length());
+		for (int i = 0; i < n; i++) {
+			if (s1.charAt(i) != s2.charAt(i))
+				return s1.substring(0, i);
+		}
+		return s1.substring(0, n);
+	}
+	
 	public static void main (String[] args)	{
 		/*
 		String[] strings = new String[] { "yellow", "blue", "green", "water", "test", "tomato", "harbor"};
