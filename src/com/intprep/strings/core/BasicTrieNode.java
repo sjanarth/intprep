@@ -9,20 +9,20 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.TreeMap;
 
-public class GenericTrieNode 
+public class BasicTrieNode 
 {
-	public GenericTrieNode () { 
+	public BasicTrieNode () { 
 		this (null, null); 
 	}
 
-	public GenericTrieNode (Character ch, GenericTrieNode p) { 
+	public BasicTrieNode (Character ch, BasicTrieNode p) { 
 		c = ch; 
-		children = new TreeMap<Character,GenericTrieNode>(new NullCharComparator());
+		children = new TreeMap<Character,BasicTrieNode>(new NullCharComparator());
 		parentNode = p;	// a more clever implementation could do away with this
 		properties = new HashMap<Object,Object>();
 	}
 	
-	public Map<Character,GenericTrieNode> getChildMap()	{
+	public Map<Character,BasicTrieNode> getChildMap()	{
 		return children;
 	}
 	
@@ -34,33 +34,39 @@ public class GenericTrieNode
 		return c == null && !children.isEmpty();
 	}
 	
-	public GenericTrieNode add(Queue<Character> q)	{
+	public BasicTrieNode add(Queue<Character> q)	{
 		Character nextChar = null;
 		if (!q.isEmpty()) 
 			nextChar = q.poll();
-		GenericTrieNode child = children.get(nextChar);
+		BasicTrieNode child = children.get(nextChar);
 		if (child == null)	{
 			child = createNode (nextChar, this);
 			children.put(nextChar, child);
 		}
+		/*
 		if (nextChar != null)
 			child.add(q);
 		return child;
+		*/
+		if (nextChar != null)
+			return child.add(q);
+		else
+			return child;
 	}
 	
-	public GenericTrieNode findNode(Queue<Character> qPrefix)	{
+	public BasicTrieNode findNode(Queue<Character> qPrefix)	{
 		if (qPrefix.isEmpty()) 
 			return this;// children.get(null);
 		Character nextChar = qPrefix.poll();
 		if(!children.containsKey(nextChar)) 
 			return null;
-		GenericTrieNode nextNode = children.get(nextChar);
+		BasicTrieNode nextNode = children.get(nextChar);
 		return nextNode.findNode(qPrefix);
 	}
 	
 	public String getString ()  {
 		StringBuilder sb = new StringBuilder();
-		GenericTrieNode curr = this;
+		BasicTrieNode curr = this;
 		while (curr != null) {
 			if (curr.c != null)
 				sb.append(curr.c);
@@ -75,7 +81,7 @@ public class GenericTrieNode
 			allStrings.add(""); 
 			return allStrings; 
 		}
-		for(GenericTrieNode child : children.values())	
+		for(BasicTrieNode child : children.values())	
 			for (String s : child.getAllChildStrings()) 	
 				allStrings.add(c+s);
 		return allStrings;
@@ -87,19 +93,25 @@ public class GenericTrieNode
 			sb.append("/");
 			for (Character ch : children.keySet()) {
 				sb.append("\n");
-				GenericTrieNode child = children.get(ch);
+				BasicTrieNode child = children.get(ch);
 				sb.append(child.toString(level+1));
 			}
 		} else {
 			for (int i = 1; i < level; i++) sb.append(" ");
 			sb.append("\\_");
 			if (isWord()) {
-				sb.append("."); 
+				sb.append(".");
+				if (!properties.isEmpty())	{
+					sb.append("("); appendProps(sb); sb.append(")");
+				}
 			} else {
 				sb.append(c);
+				if (!properties.isEmpty()) {
+					sb.append("("); appendProps(sb); sb.append(")");
+				}
 				for (Character ch : children.keySet()) {
 					sb.append("\n");
-					GenericTrieNode child = children.get(ch);
+					BasicTrieNode child = children.get(ch);
 					sb.append(child.toString(level+2));
 				}
 			}
@@ -117,14 +129,30 @@ public class GenericTrieNode
 		return oldValue;
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public void addProperty (Object key, Object value) {
+		Object oldValue = properties.get(key);
+		if (oldValue != null)	{
+			if (oldValue instanceof List)	{
+				List ov = (List) oldValue;
+				if (value instanceof List)
+					ov.addAll((List)value);
+				else
+					ov.add(value);
+			}
+		} else {
+			setProperty(key, value);
+		}
+	}
+	
 	@SuppressWarnings("rawtypes")
-	private GenericTrieNode createNode (Character ch, GenericTrieNode parent)	{
-		Class<? extends GenericTrieNode> cls = parent.getClass();
-		if (GenericTrieNode.class.isAssignableFrom(cls))	{
+	private BasicTrieNode createNode (Character ch, BasicTrieNode parent)	{
+		Class<? extends BasicTrieNode> cls = parent.getClass();
+		if (BasicTrieNode.class.isAssignableFrom(cls))	{
 			Class[] paramTypes = { Character.class, cls };
 			Object[] params = { ch, parent };
 			try {
-				Constructor<? extends GenericTrieNode> c = cls.getConstructor(paramTypes);
+				Constructor<? extends BasicTrieNode> c = cls.getConstructor(paramTypes);
 				return c.newInstance(params);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -137,9 +165,32 @@ public class GenericTrieNode
 		return null;
 	}
 	
+	private void appendProps (StringBuilder sb)	{
+		boolean first = true;
+		for (Object k : properties.keySet())	{
+			if (!first)
+				sb.append(",");
+			sb.append(k); sb.append("="); 
+			Object v = properties.get(k);
+			if (v instanceof List)	{
+				List lov = (List) v;
+				boolean first2 = true;
+				for (Object v2 : lov) {
+					if (!first2)
+						sb.append(",");
+					sb.append(v2);
+					first2 = false;
+				}
+			} else {
+				sb.append(properties.get(k));
+			}
+			first = false;
+		}
+	}
+	
 	protected Character c = null;
-	protected Map<Character,GenericTrieNode> children = null;
-	protected GenericTrieNode parentNode = null;
+	protected Map<Character,BasicTrieNode> children = null;
+	protected BasicTrieNode parentNode = null;
 	protected Map<Object,Object> properties = null;
 	
 	private static class NullCharComparator implements Comparator<Character>	{

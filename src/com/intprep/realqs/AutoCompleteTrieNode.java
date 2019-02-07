@@ -3,10 +3,10 @@ package com.intprep.realqs;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.intprep.strings.core.GenericTrieNode;
-import com.intprep.strings.core.GenericTrieNode;
+import com.intprep.strings.core.BasicTrieNode;
+import com.intprep.strings.core.BasicTrieNode;
 
-public class AutoCompleteTrieNode extends GenericTrieNode
+public class AutoCompleteTrieNode extends BasicTrieNode
 {
 	private static final int DEFAULT_TOP_K = 3;
 	private static final String TRIENODE_PROPERTY_FREQUENCY = "freq";
@@ -34,7 +34,7 @@ public class AutoCompleteTrieNode extends GenericTrieNode
 		if (isWord()) {
 			topNodes[0] = this;
 		} else {
-			for (GenericTrieNode child : children.values())	{
+			for (BasicTrieNode child : children.values())	{
 				AutoCompleteTrieNode achild = (AutoCompleteTrieNode) child;
 				for (AutoCompleteTrieNode topK : achild.crawl())	{
 					if (topK == null) break;

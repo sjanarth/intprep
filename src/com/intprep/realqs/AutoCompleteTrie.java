@@ -5,9 +5,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import com.intprep.strings.core.GenericTrie;
+import com.intprep.strings.core.BasicTrie;
 
-public class AutoCompleteTrie extends GenericTrie
+public class AutoCompleteTrie extends BasicTrie
 {
 	public AutoCompleteTrie() {
 		super (AutoCompleteTrieNode.class);

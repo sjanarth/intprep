@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Set;
 
 import com.intprep.strings.core.StringUtils;
-import com.intprep.strings.core.SuffixArray;
+import com.intprep.strings.core.BasicSuffixArray;
 
 /*
  * Given a string inputStr of length n, find the longest repeated substring in it.
@@ -29,7 +29,7 @@ public class LongestRepeatedSubstring
 	}
 	
 	private static void findLRS (String s)	{
-		SuffixArray sa = new SuffixArray(s);
+		BasicSuffixArray sa = new BasicSuffixArray(s);
 		int[] LCPs = sa.getLCPArray();
 		int topLCP = -1;
 		int idxTopLCP = -1;

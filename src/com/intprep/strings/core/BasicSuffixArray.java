@@ -7,9 +7,9 @@ import java.util.Comparator;
  * References:
  * 	 https://github.com/williamfiset/data-structures/tree/master/com/williamfiset/datastructures/suffixarray
  */
-public class SuffixArray 
+public class BasicSuffixArray 
 {
-	public SuffixArray (String t) {
+	public BasicSuffixArray (String t) {
 		construct(t);
 	}
 
@@ -92,6 +92,6 @@ public class SuffixArray
 	}
 	
 	public static void main (String[] args)	{
-		System.out.println(new SuffixArray("banana".toString()));
+		System.out.println(new BasicSuffixArray("banana".toString()));
 	}
 }

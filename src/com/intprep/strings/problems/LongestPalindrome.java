@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
-import com.intprep.strings.core.SuffixArray;
+import com.intprep.strings.core.BasicSuffixArray;
 
 public class LongestPalindrome 
 {
@@ -20,7 +20,7 @@ public class LongestPalindrome
 	
 	private static String findLCS (String s1, String s2) {
 		String lcs = "";
-		SuffixArray sa = new SuffixArray(s1 + DELIM + s2);
+		BasicSuffixArray sa = new BasicSuffixArray(s1 + DELIM + s2);
 		//System.out.println(sa.toString());
 		int[] lcp = sa.getLCPArray();
 		Map<Integer,Integer> lcpMap = new TreeMap<Integer,Integer>(Collections.reverseOrder());

@@ -8,17 +8,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
-public class GenericTrie
+public class BasicTrie
 {
-	public GenericTrie() {
-		root = new GenericTrieNode();
+	public BasicTrie() {
+		root = new BasicTrieNode();
 		properties = new HashMap<Object,Object>(); 
 	}
 	
-	public GenericTrie (Class<? extends GenericTrieNode> subClass) {
-		if (GenericTrieNode.class.isAssignableFrom(subClass))	{
+	public BasicTrie (Class<? extends BasicTrieNode> subClass) {
+		if (BasicTrieNode.class.isAssignableFrom(subClass))	{
 			try {
-				Constructor<? extends GenericTrieNode> c = subClass.getConstructor(new Class[] {});
+				Constructor<? extends BasicTrieNode> c = subClass.getConstructor(new Class[] {});
 				root = c.newInstance(new Object[] {});
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -30,7 +30,7 @@ public class GenericTrie
 		}
 	}
 	
-	public GenericTrieNode add (String word) {
+	public BasicTrieNode add (String word) {
 		//System.out.println("Trie.add, s="+s);
 		word = word.toLowerCase();	// done typically to minimize the overall size of the trie
 		Queue<Character> q = toCharQueue(word);
@@ -40,7 +40,7 @@ public class GenericTrie
 	public List<String> searchAlpha (String prefix)	{
 		System.out.println("searchAlpha, prefix="+prefix);
 		Queue<Character> q = toCharQueue(prefix);
-		GenericTrieNode node = root.findNode(q);
+		BasicTrieNode node = root.findNode(q);
 		if (node != null)	{
 			//System.out.println(node.toString(0));
 			/*
@@ -78,6 +78,6 @@ public class GenericTrie
 		return q;
 	}
 	
-	protected GenericTrieNode root = null;
+	protected BasicTrieNode root = null;
 	protected Map<Object,Object> properties = null;
 }
