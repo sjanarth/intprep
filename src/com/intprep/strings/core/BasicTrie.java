@@ -1,17 +1,33 @@
 package com.intprep.strings.core;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public class Trie
+public class BasicTrie
 {
-	public Trie() {
-		root = new TrieNode();
+	public BasicTrie() {
+		root = new BasicTrieNode();
 	}
 	
-	public TrieNode add (String word) {
+	public BasicTrie (Class<? extends BasicTrieNode> subClass) {
+		if (BasicTrieNode.class.isAssignableFrom(subClass))	{
+			try {
+				Constructor<? extends BasicTrieNode> c = subClass.getConstructor(new Class[] {});
+				root = c.newInstance(new Object[] {});
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else 
+		{
+			throw new IllegalStateException("Class " + subClass + " not s subclass of BasicTrieNode");
+		}
+	}
+	
+	public BasicTrieNode add (String word) {
 		//System.out.println("Trie.add, s="+s);
 		word = word.toLowerCase();	// done typically to minimize the overall size of the trie
 		Queue<Character> q = toCharQueue(word);
@@ -21,7 +37,7 @@ public class Trie
 	public List<String> searchAlpha (String prefix)	{
 		System.out.println("searchAlpha, prefix="+prefix);
 		Queue<Character> q = toCharQueue(prefix);
-		TrieNode node = root.findNode(q);
+		BasicTrieNode node = root.findNode(q);
 		if (node != null)	{
 			//System.out.println(node.toString(0));
 			/*
@@ -34,42 +50,20 @@ public class Trie
 		}
 		return new ArrayList<String>();
 	}
-	
-	public List<String> searchTopK (String prefix)	{
-		System.out.println("searchTopK, prefix="+prefix);
-		Queue<Character> q = toCharQueue(prefix);
-		TrieNode node = root.findNode(q);
-		if (node != null)	{
-			//System.out.println(node.toString(0));	
-			return node.getTopChildStrings();
-		}
-		return new ArrayList<String>();
-	}
-	
-	public Integer update (String s, int freq)	{
-		Queue<Character> qPrefix = toCharQueue(s);
-		TrieNode node = root.findNode(qPrefix);
-		if (node == null)
-			node = add(s);
-		return node.getChildMap().get(null).setFrequency(freq);
-	}
-	
-	public void crawl ()	{
-		root.crawl();
-	}
-	
+		
+	@Override
 	public String toString () {
 		StringBuilder sb = new StringBuilder();
 		sb.append(root.toString(0));
 		return sb.toString();
 	}
 	
-	private Queue<Character> toCharQueue(String s) {
+	protected Queue<Character> toCharQueue(String s) {
 		Queue<Character> q = new LinkedList<Character>();
 		for (Character c : s.toCharArray())
 			q.add(c);
 		return q;
 	}
 	
-	private TrieNode root = null;
+	protected BasicTrieNode root = null;
 }
