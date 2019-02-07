@@ -1,6 +1,6 @@
 package com.intprep.strings.core;
 
-public class SuffixTree extends BasicTrie
+public class SuffixTree extends GenericTrie
 {
 	public SuffixTree(String w) {
 		construct(w);

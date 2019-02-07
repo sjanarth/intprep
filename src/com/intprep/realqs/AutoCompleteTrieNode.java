@@ -3,7 +3,7 @@ package com.intprep.realqs;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.intprep.strings.core.BasicTrieNode;
+import com.intprep.strings.core.GenericTrieNode;
 import com.intprep.strings.core.GenericTrieNode;
 
 public class AutoCompleteTrieNode extends GenericTrieNode
@@ -34,7 +34,7 @@ public class AutoCompleteTrieNode extends GenericTrieNode
 		if (isWord()) {
 			topNodes[0] = this;
 		} else {
-			for (BasicTrieNode child : children.values())	{
+			for (GenericTrieNode child : children.values())	{
 				AutoCompleteTrieNode achild = (AutoCompleteTrieNode) child;
 				for (AutoCompleteTrieNode topK : achild.crawl())	{
 					if (topK == null) break;
