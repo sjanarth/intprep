@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import com.intprep.strings.core.BasicSuffixArray;
+import com.intprep.strings.core.GeneralizedSuffixTree;
 
 /*
  * References:
@@ -20,9 +21,15 @@ public class LongestCommonSubstring
 		findLCS("abc", "pabcu");
 		findLCS("abca", "bcad");
 		findLCS("daca", "bcad");
+		findLCSUsingGST (new String[] {"abcd", "dbcaaa", "123bccccc", "fxxxxbc123aa"});
 	}
 	
-	private static void findLCS (String s1, String s2) {
+	private static void findLCS (String s1, String s2)	{
+		findLCSUsingSA (s1, s2);
+		findLCSUsingGST (s1, s2);
+	}
+	
+	private static void findLCSUsingSA (String s1, String s2) {
 		String lcs = "";
 		BasicSuffixArray sa = new BasicSuffixArray(s1 + DELIM + s2);
 		//System.out.println(sa.toString());
@@ -40,7 +47,7 @@ public class LongestCommonSubstring
 				break;
 			}
 		}
-		System.out.println("Longest common substring("+s1+","+s2+") = "+lcs);
+		System.out.println("Longest common substring("+s1+","+s2+") using SA = "+lcs);
 		//System.out.println();
 	}
 	
@@ -48,6 +55,21 @@ public class LongestCommonSubstring
 		return ((s1.contains(DELIM) && !s2.contains(DELIM)) ||
 				(!s1.contains(DELIM) && s2.contains(DELIM)));
 	}
+	
+	private static void findLCSUsingGST (String s1, String s2) {
+		System.out.println("Longest common substring("+s1+","+s2+") using GST = "+GeneralizedSuffixTree.getLCS(new String[] {s1, s2}));
+	}
+	
+	private static void findLCSUsingGST (String[] words) {
+		StringBuffer sb = new StringBuffer();
+		for (String w : words) {
+			if (sb.length() > 0) sb.append(","); 
+			sb.append(w);
+		}
+		System.out.println("Longest common substring("+sb.toString()+") using GST = "+GeneralizedSuffixTree.getLCS(words));
+	}
+	
+	
 	
 	private static final String DELIM = "$";
 }

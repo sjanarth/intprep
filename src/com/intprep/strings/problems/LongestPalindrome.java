@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import com.intprep.strings.core.BasicSuffixArray;
+import com.intprep.strings.core.GeneralizedSuffixTree;
 
 public class LongestPalindrome 
 {
@@ -15,10 +16,11 @@ public class LongestPalindrome
 
 	private static void findLP (String s) {
 		String rev = new StringBuilder(s).reverse().toString();
-		System.out.println("showLongestPalindrome("+s+") = "+findLCS(s, rev));
+		System.out.println("showLongestPalindrome("+s+") using SA = "+findLCSUsingSA(s, rev));
+		System.out.println("showLongestPalindrome("+s+") using GST = "+findLCSUsingGST(new String[] {s, rev}));
 	}
 	
-	private static String findLCS (String s1, String s2) {
+	private static String findLCSUsingSA (String s1, String s2) {
 		String lcs = "";
 		BasicSuffixArray sa = new BasicSuffixArray(s1 + DELIM + s2);
 		//System.out.println(sa.toString());
@@ -43,6 +45,11 @@ public class LongestPalindrome
 		return ((s1.contains(DELIM) && !s2.contains(DELIM)) ||
 				(!s1.contains(DELIM) && s2.contains(DELIM)));
 	}
+	
+	private static String findLCSUsingGST (String[] words) {
+		return GeneralizedSuffixTree.getLCS(words);
+	}
+	
 	
 	private static final String DELIM = "$";
 }

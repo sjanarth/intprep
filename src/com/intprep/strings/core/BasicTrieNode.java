@@ -2,11 +2,14 @@ package com.intprep.strings.core;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Set;
 import java.util.TreeMap;
 
 public class BasicTrieNode 
@@ -24,6 +27,10 @@ public class BasicTrieNode
 	
 	public Map<Character,BasicTrieNode> getChildMap()	{
 		return children;
+	}
+	
+	public BasicTrieNode getParent()	{
+		return parentNode;
 	}
 	
 	public boolean isWord () {
@@ -68,8 +75,8 @@ public class BasicTrieNode
 		StringBuilder sb = new StringBuilder();
 		BasicTrieNode curr = this;
 		while (curr != null) {
-			if (curr.c != null)
-				sb.append(curr.c);
+			if (!curr.isRoot())	
+				sb.append(curr.c == null? "." : curr.c);
 			curr = curr.parentNode;
 		}
 		return sb.reverse().toString();
@@ -133,15 +140,28 @@ public class BasicTrieNode
 	public void addProperty (Object key, Object value) {
 		Object oldValue = properties.get(key);
 		if (oldValue != null)	{
-			if (oldValue instanceof List)	{
-				List ov = (List) oldValue;
-				if (value instanceof List)
-					ov.addAll((List)value);
+			if (oldValue instanceof Collection)	{
+				Collection ov = (Collection) oldValue;
+				if (value instanceof Collection)
+					ov.addAll((Collection)value);
 				else
 					ov.add(value);
+			} else if (oldValue instanceof Map)	{
+				Map ov = (Map) oldValue;
+				if (value instanceof Map)
+					ov.putAll((Map)value);
+				else
+					setProperty(key, value);
+			} else {
+				Set<Object> sov = new HashSet<Object>();
+				sov.add(oldValue);
+				sov.add(value);
+				setProperty(key, sov);
 			}
 		} else {
-			setProperty(key, value);
+			Set<Object> sov = new HashSet<Object>();
+			sov.add(value);
+			setProperty(key, sov);
 		}
 	}
 	
@@ -165,6 +185,7 @@ public class BasicTrieNode
 		return null;
 	}
 	
+	@SuppressWarnings("unchecked")
 	private void appendProps (StringBuilder sb)	{
 		boolean first = true;
 		for (Object k : properties.keySet())	{
@@ -172,8 +193,8 @@ public class BasicTrieNode
 				sb.append(",");
 			sb.append(k); sb.append("="); 
 			Object v = properties.get(k);
-			if (v instanceof List)	{
-				List lov = (List) v;
+			if (v instanceof Collection)	{
+				Collection<Object> lov = (Collection<Object>) v;
 				boolean first2 = true;
 				for (Object v2 : lov) {
 					if (!first2)

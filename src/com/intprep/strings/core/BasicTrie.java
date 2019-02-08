@@ -30,6 +30,10 @@ public class BasicTrie
 		}
 	}
 	
+	public BasicTrieNode getRoot()	{
+		return root;
+	}
+	
 	public BasicTrieNode add (String word) {
 		//System.out.println("Trie.add, s="+s);
 		word = word.toLowerCase();	// done typically to minimize the overall size of the trie
