@@ -8,8 +8,10 @@ public class RotatedSortedArrays
 		countRotations(arr);
 		findMin (arr);
 		findIndex (arr, 6);
+		findIndex (arr, -6);
 		reverseArray (arr);
 		rotateLeft (arr, 2);
+		rotateRight (arr, 2);
 	}
 	
 	private static void showArray (String str, int[] arr) {
@@ -69,16 +71,19 @@ public class RotatedSortedArrays
 	
 	private static void rotateLeft (int[] arr, int d)	{
 		int N = arr.length;
-		int pv = N - (d % N);
-		System.out.println("pv = "+pv);
+		int pv = (d % N);
 		reverse(arr, 0, pv-1);
-		showArray("1", arr);
 		reverse(arr, pv, N-1);
 		reverse(arr, 0, N-1);
 		showArray("rotateLeft("+d+") = ", arr);
 	}
 	
 	private static void rotateRight (int[] arr, int d)	{
+		int N = arr.length;
+		int pv = N - (d % N);
+		reverse(arr, 0, pv-1);
+		reverse(arr, pv, N-1);
+		reverse(arr, 0, N-1);
 		showArray("rotateRight("+d+") = ", arr);
 	}
 	
@@ -86,23 +91,13 @@ public class RotatedSortedArrays
 		reverse (arr, 0, arr.length-1);
 		showArray("Reversed Array", arr);
 	}
-	/*
-	private static void reverse (int[] arr, int start, int end)	{
-		int N = arr.length-1;
-		for (int i = 0; i <= N/2; i++)	{
-			int tmp = arr[i];
-			arr[i] = arr[N-i];
-			arr[N-i] = tmp;
-		}
-	}
-	*/
 
 	private static void reverse (int[] arr, int start, int end)	{
-		int N = end-start-1;
-		for (int i = start; i <= N/2; i++)	{
+		int N = end-start;
+		for (int i = start; i <= start+N/2; i++)	{
 			int tmp = arr[i];
-			arr[i] = arr[N-i];
-			arr[N-i] = tmp;
+			arr[i] = arr[start+end-i];
+			arr[start+end-i] = tmp;
 		}
 	}
 }
