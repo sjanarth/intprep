@@ -28,6 +28,8 @@ public class MeetingRooms
 	public static void main (String[] args) {
 		canAttendAllMeetings (scheduleMeetings1());
 		canAttendAllMeetings (scheduleMeetings2());
+		findMinMeetingRooms (scheduleMeetings1());
+		findMinMeetingRooms (scheduleMeetings2());
 	}
 	
 	private static Interval[] scheduleMeetings1()	{
@@ -62,6 +64,34 @@ public class MeetingRooms
 		}
 		System.out.println("No overlaps, all meetings can be attended\n");
 		return true;
+	}
+	
+	private static int findMinMeetingRooms (Interval[] meetings)	{
+		printMeetings ("Input", meetings);
+		/*
+		Arrays.sort(meetings, new Comparator<Interval>() {
+				public int compare(Interval a, Interval b) { return a.start - b.start; }
+			});
+		printMeetings ("Sorted", meetings);
+		*/
+		int maxOverlaps = 0;
+		for (int  i = 0; i < meetings.length-1; i++)	{
+			int thisOverlaps = 0;
+			for (int j = i+1; j < meetings.length; j++)	{
+				if (isOverlapping (meetings[i], meetings[j]))
+					thisOverlaps++;
+			}
+			if (maxOverlaps < thisOverlaps)
+				maxOverlaps = thisOverlaps;
+		}
+		int min = (maxOverlaps == 0 ? 1 : maxOverlaps);
+		System.out.println("Minimum meeting rooms needed = "+min+"\n");
+		return min;
+	}
+	
+	private static boolean isOverlapping (Interval i1, Interval i2)	{
+		return (i1.start < i2.start && i2.start < i1.end) ||
+				(i2.start < i1.start && i1.start < i2.end);
 	}
 	
 	private static void printMeetings (String s, Interval[] meetings) {
