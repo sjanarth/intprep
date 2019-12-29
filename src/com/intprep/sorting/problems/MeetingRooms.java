@@ -2,6 +2,7 @@ package com.intprep.sorting.problems;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.PriorityQueue;
 
 /*
  * Given an array of meeting time intervals consisting of start and 
@@ -30,6 +31,7 @@ public class MeetingRooms
 		canAttendAllMeetings (scheduleMeetings2());
 		findMinMeetingRooms (scheduleMeetings1());
 		findMinMeetingRooms (scheduleMeetings2());
+		findMinMeetingRooms (new Interval[] {new Interval(13,15), new Interval(1,13)});
 	}
 	
 	private static Interval[] scheduleMeetings1()	{
@@ -68,30 +70,29 @@ public class MeetingRooms
 	
 	private static int findMinMeetingRooms (Interval[] meetings)	{
 		printMeetings ("Input", meetings);
-		/*
 		Arrays.sort(meetings, new Comparator<Interval>() {
 				public int compare(Interval a, Interval b) { return a.start - b.start; }
 			});
 		printMeetings ("Sorted", meetings);
-		*/
-		int maxOverlaps = 0;
-		for (int  i = 0; i < meetings.length-1; i++)	{
-			int thisOverlaps = 0;
-			for (int j = i+1; j < meetings.length; j++)	{
-				if (isOverlapping (meetings[i], meetings[j]))
-					thisOverlaps++;
+		PriorityQueue<Interval> queue = new PriorityQueue<Interval>(meetings.length, new Comparator<Interval>() {
+				public int compare(Interval o1, Interval o2) { return o1.end - o2.end; }
+			});
+		for (int i = 0; i < meetings.length; i++)	{
+			if (queue.isEmpty()) {
+				queue.offer(meetings[i]);
+			} else	{
+				Interval earliestFinishing = queue.poll();
+				if (earliestFinishing.end <= meetings[i].start)	{
+					earliestFinishing.end = meetings[i].end;
+				} else {
+					queue.offer(meetings[i]);
+				}
+				queue.offer(earliestFinishing);
 			}
-			if (maxOverlaps < thisOverlaps)
-				maxOverlaps = thisOverlaps;
 		}
-		int min = (maxOverlaps == 0 ? 1 : maxOverlaps);
-		System.out.println("Minimum meeting rooms needed = "+min+"\n");
-		return min;
-	}
-	
-	private static boolean isOverlapping (Interval i1, Interval i2)	{
-		return (i1.start < i2.start && i2.start < i1.end) ||
-				(i2.start < i1.start && i1.start < i2.end);
+		int minRooms = queue.size();
+		System.out.println("Minimum meeting rooms needed = "+minRooms+"\n");
+		return minRooms;
 	}
 	
 	private static void printMeetings (String s, Interval[] meetings) {
