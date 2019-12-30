@@ -15,8 +15,8 @@ import java.util.Map;
  * 5. To guard against hash collisions, perform a full text 
  *    compare of candidate matches against the given pattern. 
  *    
- *    Time complexity:   o(n^2*m)
- *    Space complexity:  o(n^2)
+ *    Time complexity:   o(n)			//o(n^2*m)
+ *    Space complexity:  o(n*m)			//o(n^2)
  */
 
 public class HashBasedSubstringSearcher extends AbstractSubstringSearcher 
@@ -24,7 +24,10 @@ public class HashBasedSubstringSearcher extends AbstractSubstringSearcher
 	@Override
 	protected Integer[] searchSubstring(String text, String pattern) {
 		int m = pattern.length();
+		long start = System.nanoTime() / 1000;
 		Map<String,List<Integer>> subs = getAllSubstrings(text, m);
+		long end = System.nanoTime() / 1000;
+		System.out.println("    Runtime to build substring map: "+(end-start)+" us");
 		List<Integer> matches = subs.get(pattern);
 		if (matches == null)	{ 
 			matches = new ArrayList<Integer>();
@@ -44,7 +47,8 @@ public class HashBasedSubstringSearcher extends AbstractSubstringSearcher
 		}
 		return matches.toArray(new Integer[0]);
 	}
-	
+
+	/*
 	protected Map<String,List<Integer>> getAllSubstrings (String text, int m)	{
 		Map<String,List<Integer>> subs = new HashMap<String,List<Integer>>();	
 		for (int i = 0; i < text.length(); i++) {
@@ -57,6 +61,22 @@ public class HashBasedSubstringSearcher extends AbstractSubstringSearcher
 					subs.put(sub, indices);
 				}
 			}
+		}
+		System.out.println("    Found "+subs.size()+" substrings of length "+m);
+		for (String sub : subs.keySet())
+			System.out.println(subs.get(sub)+": "+sub);
+		return subs;
+	}
+	*/
+	
+	protected Map<String,List<Integer>> getAllSubstrings (String text, int m)	{
+		Map<String,List<Integer>> subs = new HashMap<String,List<Integer>>();	
+		for (int i = 0; i <= text.length() - m; i++) {
+			String sub = text.substring(i, i+m);
+			List<Integer> indices = subs.get(sub);
+			if (indices == null) indices = new ArrayList<Integer>();
+			indices.add(i);
+			subs.put(sub, indices);
 		}
 		System.out.println("    Found "+subs.size()+" substrings of length "+m);
 		//for (String sub : subs.keySet())
