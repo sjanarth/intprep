@@ -16,6 +16,7 @@ public abstract class AbstractTreeProblem
     }
 	
 	public void executeAllTestCases ()	{
+		System.out.println("Executing all test cases for "+getClass().getCanonicalName());
 		Map<String,Node> trees = buildSampleTrees();
 		for (String key : trees.keySet()) {
 			System.out.println("        **** "+key+" ****");
