@@ -49,7 +49,7 @@ public class CheapestLeaf
 			}
 			if (!currNode.children.isEmpty())	{
 				costs.remove(currNode);
-			}
+			}	
 		}
 		Node minNode = null;
 		int minCost = Integer.MAX_VALUE;
