@@ -10,7 +10,9 @@ import java.util.Map;
 public class ShortestSubstringWithGivenChars 
 {
 	public static void main (String[] args) {
-		showShortestSubstring("helloworld", "lwrz");
+		//showShortestSubstring("helloworld", "lwr");
+		showShortestSubstring("ADOBECODEBANC","ABC");
+		
 	}
 
 	private static void showShortestSubstring (String s1, String s2) {
@@ -37,6 +39,7 @@ public class ShortestSubstringWithGivenChars
 					}
 				}
 			}
+			System.out.print("left="+left+", right="+right); showMap(lastPos);
 			right++;
 		}
 		if (lastPos.size() < symbols.length) {
@@ -80,4 +83,12 @@ public class ShortestSubstringWithGivenChars
 		}
 		return max;
 	}
+	
+	private static void showMap (Map<Character,Integer> map) {
+		for (Character ch : map.keySet())
+			System.out.print(", "+ch+"="+map.get(ch));
+		System.out.println();
+	}
+	
+	
 }
