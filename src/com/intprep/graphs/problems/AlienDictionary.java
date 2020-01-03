@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
+import com.intprep.graphs.core.TopologicalSortIterator;
 import com.intprep.graphs.core.Vertex;
 
 /*
@@ -28,6 +29,10 @@ public class AlienDictionary
 	private static void findAlienAlphabet (String[] words)	{
 		Collection<Vertex<Character>> graph = buildGraph (words);
 		topologicalSort (graph);
+		System.out.print("Using iterator: ");
+		TopologicalSortIterator<Character> it = new TopologicalSortIterator<Character>(graph);
+		while (it.hasNext())
+			System.out.print(it.next()+" ");
 	}
 	
 	private static Collection<Vertex<Character>> buildGraph (String[] words)	{

@@ -24,6 +24,10 @@ public class GraphUtils
 		it = new BreadthFirstIterator<T>(comp);
 		while (it.hasNext())	System.out.print(it.next().getLabel()+" ");
 		System.out.println();
+		System.out.print("Topological Sort:  ");
+		it = new TopologicalSortIterator<T>(comp);
+		while (it.hasNext())	System.out.print(it.next().getLabel()+" ");
+		System.out.println();
 		System.out.println("Adjacency list: ");
 		printAdjacencyList(comp, new HashSet<Vertex<T>>(), new HashSet<String>());
 	}

@@ -10,6 +10,7 @@ public class BreadthFirstIterator<T> implements Iterator<Vertex<T>>
 {
 	public BreadthFirstIterator (Vertex<T> v) {
 		if (v != null)	{
+			visited.add(v);
 			queue.add(v);
 		}
 	}
@@ -22,17 +23,20 @@ public class BreadthFirstIterator<T> implements Iterator<Vertex<T>>
 	@Override
 	public Vertex<T> next() {
 		Vertex<T> head = queue.poll();
-		processed.add(head);
-		queueChildren(head);
+		if (head.hasNeighbors())	{
+			for (Vertex<T> n : head.getNeighbors())	{	
+				if (!visited.contains(n))	{
+					visited.add(n);
+					queue.offer(n);
+				}
+			}
+		}
 		return head;
 	}
 	
 	protected void queueChildren(Vertex<T> v) {
-		for (Vertex<T> n : v.getNeighbors())	
-			if (!queue.contains(n) && !processed.contains(n))
-				queue.add(n);
 	}
 
 	private Queue<Vertex<T>> queue = new LinkedList<Vertex<T>>();
-	private Set<Vertex<T>> processed = new HashSet<Vertex<T>>();
+	private Set<Vertex<T>> visited = new HashSet<Vertex<T>>();
 }
