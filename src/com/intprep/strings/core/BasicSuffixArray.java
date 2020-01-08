@@ -54,8 +54,12 @@ public class BasicSuffixArray
 		// gather all suffixes
 		for (int i = 0; i < text.length(); i++)	
 			suffixes[i] = new Suffix(text.substring(i), i);
+		//System.out.println("Listing all suffixes");
+		//for (Suffix s : suffixes) System.out.println(s);
 		// sort them
 		Arrays.sort(suffixes, Suffix.getComparator());
+		//System.out.println("After sorting");
+		//for (Suffix s : suffixes) System.out.println(s);
 		//System.out.println("Showing sorted suffixes");
 		//for (int i = 0; i < suffixes.length; i++)
 			//System.out.println(i+": "+suffixes[i]);
@@ -64,6 +68,7 @@ public class BasicSuffixArray
 		for (int i = 1; i < t.length(); i++)	{
 			sa[i-1] = suffixes[i-1].position;
 			lcp[i] = StringUtils.lcp(suffixes[i-1].suffix, suffixes[i].suffix).length();
+			//System.out.println("LCP ("+suffixes[i-1]+", "+suffixes[i]+") = "+StringUtils.lcp(suffixes[i-1].suffix, suffixes[i].suffix));
 			suffixes[i-1] = null;	// free up
 		}
 		sa[t.length()-1] = suffixes[t.length()-1].position;
@@ -92,6 +97,6 @@ public class BasicSuffixArray
 	}
 	
 	public static void main (String[] args)	{
-		System.out.println(new BasicSuffixArray("banana".toString()));
+		System.out.println(new BasicSuffixArray("cart$art".toString()));
 	}
 }
