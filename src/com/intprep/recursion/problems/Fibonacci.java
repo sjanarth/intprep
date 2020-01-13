@@ -6,7 +6,7 @@ import java.util.Map;
 public class Fibonacci 
 {
 	public static void main (String[] args)	{
-		fibonacci (10);
+		fibonacci (40);
 	}
 	
 	protected static void fibonacci (int n) {
