@@ -1,4 +1,4 @@
-package com.intprep.realqs;
+package com.intprep.arrays;
 
 import java.util.Arrays;
 

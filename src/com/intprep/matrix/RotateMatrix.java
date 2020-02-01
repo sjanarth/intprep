@@ -1,4 +1,4 @@
-package com.intprep.realqs;
+package com.intprep.matrix;
 
 public class RotateMatrix
 {

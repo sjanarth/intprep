@@ -1,4 +1,4 @@
-package com.intprep.realqs;
+package com.intprep.dsdesign;
 
 import java.util.Iterator;
 import java.util.LinkedList;

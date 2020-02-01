@@ -1,4 +1,4 @@
-package com.intprep.realqs;
+package com.intprep.dsdesign;
 
 import java.util.List;
 import java.util.ArrayList;
