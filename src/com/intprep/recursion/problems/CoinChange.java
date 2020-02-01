@@ -44,6 +44,19 @@ public class CoinChange
 	
 	private static int findMinCoinChangeNoMemo (int sum, int[] coins) { 	
 		if (sum == 0) return 0;
+		int min = Integer.MAX_VALUE;
+		for (int c : coins) {
+			if (c <= sum)	{
+				int thisMin = findMinCoinChangeNoMemo (sum-c, coins);
+				if (thisMin != Integer.MAX_VALUE && thisMin+1 < min)
+					min = thisMin + 1;
+			}
+		}
+		return min;
+	}
+
+	private static int findMinCoinChangeNoMemo2 (int sum, int[] coins) { 	
+		if (sum == 0) return 0;
 		if (sum < 0) return Integer.MAX_VALUE;
 		for (int c : coins) if (c == sum) return 1; 
 		int min = Integer.MAX_VALUE;

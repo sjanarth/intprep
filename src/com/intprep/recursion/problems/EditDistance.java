@@ -40,8 +40,7 @@ public class EditDistance
 									 findEditDistance (s1, s2, m-1, n)));
 	}
 	
-	private static int findEditDistanceWithMemo (
-			String s1, String s2, int m, int n, Map<String,Integer> memo) {
+	private static int findEditDistanceWithMemo (String s1, String s2, int m, int n, Map<String,Integer> memo) {
 		String key = makeKey (m, n);
 		if (memo.containsKey(key)) return memo.get(key);
 		int ed = findEditDistance (s1, s2, m, n);

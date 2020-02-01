@@ -8,7 +8,7 @@ public class Subsets2
 	public static void main (String[] args) {
 		Set<String> all = new LinkedHashSet<>();
 		findAllSubsets (all, "", "abcd", 0);
-		int i = 0;
+		int i = 1;
 		for (String s : all)	
 			System.out.println(i+++ ": {"+s+"}");
 	}
