@@ -24,6 +24,7 @@ public class TreesExecutor
 		new LowestCommonAncestor(),
 		new MergeTwoBSTs(),
 		new RebuildTree(),
+		new RightSideView(),
 		new SerializeDeserialize(),
 		new SortedArrayToBST(),
 	};

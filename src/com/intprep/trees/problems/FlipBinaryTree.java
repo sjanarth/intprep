@@ -16,12 +16,8 @@ public class FlipBinaryTree extends AbstractTreeProblem
 	private Node flipTree(Node root) {
 		if (root == null) return null;
 		Node node = new AbstractTreeProblem.Node(root.data);
-		if (root.left != null)	{
-			node.right = flipTree(root.left);
-		}
-		if (root.right != null)	{
-			node.left = flipTree(root.right);
-		}
+		node.right = flipTree(root.left);
+		node.left = flipTree(root.right);
 		return node;
 	}
 }
