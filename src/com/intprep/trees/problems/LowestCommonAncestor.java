@@ -14,15 +14,13 @@ public class LowestCommonAncestor extends AbstractTreeProblem
     private static int lca(Node root, Node a, Node b)	{
     	//printInOrder (root);
     	int[] aPath = new int[0];
-    	StringBuilder sba = new StringBuilder();
-    	if (findPathToNode(root, a, sba))	{
-    		aPath = parseInts (sba.toString());
-    	}
+    	String path = findPathToNode (root, a);
+    	if (path != null)
+    		aPath = parseInts (path);
     	int[] bPath = new int[0];
-    	StringBuilder sbb = new StringBuilder();
-    	if (findPathToNode(root, b, sbb))	{
-    		bPath = parseInts (sbb.toString());
-    	}
+    	path = findPathToNode(root, b);
+    	if (path != null)	
+    		bPath = parseInts (path);
     	int lca = -1;
     	if (aPath.length > 0 && bPath.length > 0)	{
 	    	int i = 0;
@@ -34,28 +32,17 @@ public class LowestCommonAncestor extends AbstractTreeProblem
     	System.out.println("LCA ("+a.data+","+b.data+"): "+lca);
     	return lca;
     }
-	
-    private static boolean findPathToNode (Node root, Node node, StringBuilder sb)	{
-    	if (root == null || node == null) return false;
-		sb.append(root.data+DELIM);
-    	if (root.data == node.data)	{	
-			return true;
-		}
-		if (root.left != null)	{
-			StringBuilder sb2 = new StringBuilder();
-			if(findPathToNode(root.left, node, sb2))	{
-				sb.append(sb2.toString());
-				return true;
-			}
-		}
-		if (root.right != null)	{
-			StringBuilder sb2 = new StringBuilder();
-			if(findPathToNode(root.right, node, sb2))	{
-				sb.append(sb2.toString());
-				return true;
-			}	
-		}
-		return false;
+    
+    private static String findPathToNode (Node root, Node node)	{
+    	if (root == null || node == null) return null;
+    	if (root.data == node.data) return String.valueOf(root.data)+DELIM;
+    	String path = findPathToNode(root.left, node);
+    	if (path != null)	
+    		return root.data + DELIM + path;
+    	path = findPathToNode(root.right, node);
+    	if (path != null)	
+    		return root.data + DELIM + path;
+    	return null;
     }
     
     private static int[] parseInts (String s) {

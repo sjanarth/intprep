@@ -1,4 +1,4 @@
-package com.intprep.adhoc;
+package com.intprep.trees.problems;
 
 import java.util.ArrayList;
 import java.util.HashMap;
