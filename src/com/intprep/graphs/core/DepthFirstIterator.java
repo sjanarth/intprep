@@ -8,7 +8,7 @@ import java.util.Stack;
 public class DepthFirstIterator<T> implements Iterator<Vertex<T>>
 {
 	public DepthFirstIterator (Vertex<T> v) {
-		if(v != null)	{
+		if (v != null)	{
 			visited.add(v);
 			stack.push(v);
 		}

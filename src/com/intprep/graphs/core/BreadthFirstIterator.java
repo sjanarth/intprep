@@ -34,9 +34,6 @@ public class BreadthFirstIterator<T> implements Iterator<Vertex<T>>
 		return head;
 	}
 	
-	protected void queueChildren(Vertex<T> v) {
-	}
-
 	private Queue<Vertex<T>> queue = new LinkedList<Vertex<T>>();
 	private Set<Vertex<T>> visited = new HashSet<Vertex<T>>();
 }

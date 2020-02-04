@@ -1,4 +1,4 @@
-package com.intprep.graphs.core;
+package com.intprep.graphs.problems;
 
 import java.util.Collection;
 import java.util.Comparator;
@@ -7,6 +7,8 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
+
+import com.intprep.graphs.core.Edge;
 
 public class Dijkstras 
 {
