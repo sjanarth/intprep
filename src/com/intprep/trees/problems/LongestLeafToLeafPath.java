@@ -18,7 +18,7 @@ public class LongestLeafToLeafPath extends AbstractTreeProblem
 		int rHeight = getHeight(node.right);
 		int lDiameter = getDiameter(node.left);
 		int rDiameter = getDiameter(node.right);
-		return Math.max(lHeight+rHeight+1, Math.max(lDiameter,  rDiameter));
+		return Math.max(lHeight+rHeight, Math.max(lDiameter,  rDiameter));
 	}
 	
 	private int getHeight (Node node) {

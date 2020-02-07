@@ -25,7 +25,7 @@ public class SortExecutor
 	}
 	
 	public static void main(String[] args) {
-		final int SIZE = 100;
+		final int SIZE = 10;
 		int[] original = initRandomArray (SIZE);
 		for (AbstractSorter sorter : sorters)	{
 			int[] input = Arrays.copyOf(original, SIZE);

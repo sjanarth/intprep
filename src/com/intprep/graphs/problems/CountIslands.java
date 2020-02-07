@@ -6,7 +6,14 @@ import java.util.List;
 public class CountIslands 
 {
 	public static void main (String[] args) {
-		countIslands (buildGrid());
+		countIslands (buildGrid2());
+	}
+	
+	private static int[][] buildGrid2()	{
+		int[][] grid = new int[1][2];
+		grid[0][0] = 1;
+		grid[0][1] = 1;
+		return grid;
 	}
 	
 	private static int[][] buildGrid()	{

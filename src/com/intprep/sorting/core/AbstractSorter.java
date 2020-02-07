@@ -1,4 +1,4 @@
-package com.intprep.sorting.core;
+ package com.intprep.sorting.core;
 
 public abstract class AbstractSorter 
 {

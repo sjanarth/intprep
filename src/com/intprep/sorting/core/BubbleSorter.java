@@ -4,6 +4,21 @@ public class BubbleSorter extends AbstractSorter
 {
 	@Override	
 	public int[] sort (int[] input)	{
+		for (int i = input.length-1; i >= 0; i--)	{
+			int max = input[i];
+			for (int j = 0; j < i; j++)	{
+				if (max < input[j])	{
+					max = input[j];
+					input[j] = input[i];
+					input[i] = max;
+				}
+			}
+			printArray("", input);
+		}
+		return input;
+	}
+	
+	public int[] sort2 (int[] input)	{
 		for (int i = 0; i < input.length-1; i++)	{
 			boolean swap = false;
 			int j = 0;

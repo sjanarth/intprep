@@ -16,7 +16,28 @@ package com.intprep.sorting.problems;
 		
 public class Merge2ArraysInPlace
 {
-    private static void mergeSortedArrays(int[] arr1, int[] arr2) {
+    // o(n2)
+	// merge from the left
+	// might need to insert in the middle of the array
+	private static void mergeSortedArrays(int[] arr1, int[] arr2) {
+    	int left = 0, right = arr1.length;
+    	for (int i = 0; i < arr1.length; i++)	{
+    		if (arr1[i] <= arr2[left])	{
+    			for (int j = right; j > left; j--)	arr2[j] = arr2[j-1];
+    			arr2[left] = arr1[i];
+    			left++;
+    			right++;
+    		} else {
+    			left++;
+    			i--;
+    		}
+    	}
+    }	
+	
+	// o(n)
+	// merge from the right
+	// compare the tails, pick the lager and place it at the end
+	private static void mergeSortedArrays2(int[] arr1, int[] arr2) {
     	int n = arr1.length;
     	// Start merging from the end. 
     	int last1 = n - 1;
