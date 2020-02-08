@@ -1,7 +1,9 @@
 package com.intprep.sorting.problems;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 import java.util.PriorityQueue;
 
 /*
@@ -74,6 +76,7 @@ public class MeetingRooms
 				public int compare(Interval a, Interval b) { return a.start - b.start; }
 			});
 		printMeetings ("Sorted", meetings);
+		/*
 		PriorityQueue<Interval> queue = new PriorityQueue<Interval>(meetings.length, new Comparator<Interval>() {
 				public int compare(Interval o1, Interval o2) { return o1.end - o2.end; }
 			});
@@ -91,6 +94,23 @@ public class MeetingRooms
 			}
 		}
 		int minRooms = queue.size();
+		while (!queue.isEmpty()) System.out.print(queue.poll()+", ");
+		*/
+		
+        List<Interval> output = new ArrayList<Interval>();
+        Interval prev = meetings[0];
+        for (Interval curr : meetings)	{
+            if(curr.start > prev.end){
+                output.add(prev);
+                prev = curr;
+            } else {
+                Interval merged = new Interval(prev.start, Math.max(prev.end, curr.end));
+                prev = merged;
+            }
+        }
+        output.add(prev);
+		int minRooms = output.size();
+		printMeetings ("Output", output.toArray(new Interval[0]));
 		System.out.println("Minimum meeting rooms needed = "+minRooms+"\n");
 		return minRooms;
 	}

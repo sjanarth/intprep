@@ -21,6 +21,17 @@ public class GroupOddEvenInPlace
 	}
 	
 	private static void groupOddEvenInPlace (int[] input)	{
+		int left = 0, right = input.length-1;
+		while (left < right)	{
+			boolean isEven = (input[left]%2) == 0;
+			if (isEven)
+				swap(input, left, right--);
+			else
+				left++;
+		}
+	}
+	
+	private static void groupOddEvenInPlace2 (int[] input)	{
 		int oddNext = input.length-1;
 		int evenNext = 0;
 		while (evenNext < oddNext)	{
