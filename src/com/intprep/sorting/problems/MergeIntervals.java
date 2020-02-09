@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.PriorityQueue;
 
 /*
  * Given a collection of intervals, merge all overlapping intervals.
@@ -27,8 +28,8 @@ public class MergeIntervals
 	public static void main (String[] args) {
 		List<Interval> intervals = initIntervals();
 		print("Source", intervals);
-		List<Interval> sorted = merge (intervals);
-		print("Sorted", sorted);
+		List<Interval> merged = merge (intervals);
+		print("Merged", merged);
 	}
 	
 	private static List<Interval> initIntervals () {
@@ -70,7 +71,7 @@ public class MergeIntervals
                 prev = merged;
             }
         }
-        output.add(prev);        
+        output.add(prev);
         return output;
     }	
 }	

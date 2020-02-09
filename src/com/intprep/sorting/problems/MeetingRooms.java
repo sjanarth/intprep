@@ -1,9 +1,7 @@
 package com.intprep.sorting.problems;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.List;
 import java.util.PriorityQueue;
 
 /*
@@ -31,8 +29,12 @@ public class MeetingRooms
 	public static void main (String[] args) {
 		canAttendAllMeetings (scheduleMeetings1());
 		canAttendAllMeetings (scheduleMeetings2());
+		canAttendAllMeetings (scheduleMeetings3());
+		canAttendAllMeetings (scheduleMeetings4());
 		findMinMeetingRooms (scheduleMeetings1());
 		findMinMeetingRooms (scheduleMeetings2());
+		findMinMeetingRooms (scheduleMeetings3());
+		findMinMeetingRooms (scheduleMeetings4());
 		findMinMeetingRooms (new Interval[] {new Interval(13,15), new Interval(1,13)});
 	}
 	
@@ -54,6 +56,24 @@ public class MeetingRooms
 		return meetings;
 	}
 	
+	private static Interval[] scheduleMeetings3()	{
+		// [[4,9],[4,17],[9,10]]
+		Interval[] meetings = new Interval[3];
+		meetings[0] = new Interval(4,9);
+		meetings[1] = new Interval(4,17);
+		meetings[2] = new Interval(9,10);
+		return meetings;
+	}
+
+	private static Interval[] scheduleMeetings4()	{
+		// [[2,11],[11,16],[6,16]]
+		Interval[] meetings = new Interval[3];
+		meetings[0] = new Interval(2,11);
+		meetings[1] = new Interval(11,16);
+		meetings[2] = new Interval(6,16);
+		return meetings;
+	}
+
 	private static boolean canAttendAllMeetings (Interval[] meetings) {
 		printMeetings ("Input", meetings);
 		Arrays.sort(meetings, new Comparator<Interval>() {
@@ -76,7 +96,6 @@ public class MeetingRooms
 				public int compare(Interval a, Interval b) { return a.start - b.start; }
 			});
 		printMeetings ("Sorted", meetings);
-		/*
 		PriorityQueue<Interval> queue = new PriorityQueue<Interval>(meetings.length, new Comparator<Interval>() {
 				public int compare(Interval o1, Interval o2) { return o1.end - o2.end; }
 			});
@@ -94,23 +113,6 @@ public class MeetingRooms
 			}
 		}
 		int minRooms = queue.size();
-		while (!queue.isEmpty()) System.out.print(queue.poll()+", ");
-		*/
-		
-        List<Interval> output = new ArrayList<Interval>();
-        Interval prev = meetings[0];
-        for (Interval curr : meetings)	{
-            if(curr.start > prev.end){
-                output.add(prev);
-                prev = curr;
-            } else {
-                Interval merged = new Interval(prev.start, Math.max(prev.end, curr.end));
-                prev = merged;
-            }
-        }
-        output.add(prev);
-		int minRooms = output.size();
-		printMeetings ("Output", output.toArray(new Interval[0]));
 		System.out.println("Minimum meeting rooms needed = "+minRooms+"\n");
 		return minRooms;
 	}
