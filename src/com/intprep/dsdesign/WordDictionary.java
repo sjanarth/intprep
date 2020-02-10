@@ -1,4 +1,4 @@
-package com.intprep.graphs.problems;
+package com.intprep.dsdesign;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -25,7 +25,7 @@ import java.util.Set;
  * search("b..") -> true
  * 
  * Note:
- * You may assume that all words are consist of lowercase letters a-z.
+ * You may assume that all words  consist of lowercase letters a-z.
  */
 public class WordDictionary 
 {

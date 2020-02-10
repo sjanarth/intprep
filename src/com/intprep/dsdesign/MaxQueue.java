@@ -19,7 +19,7 @@ import java.util.List;
  * 2. Maintain a single variable to track the current maximum and update it
  *    as the queue expands and contracts.
  *    Space: o(1)
- *    Offer: o(n)
+ *    Offer: o(1)
  *     Poll: o(n) // need to peek through the rest of the queue
  *      Max: o(1)
  * 
