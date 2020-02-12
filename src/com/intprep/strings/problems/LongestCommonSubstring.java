@@ -63,7 +63,7 @@ public class LongestCommonSubstring
 		}
 		*/
 		System.out.println("Longest common substring("+s1+","+s2+") using SA = "+lcs);
-		//System.out.println();
+		System.out.println();
 	}
 	
 	private static boolean areFromDifferentSources (String s1, String s2)	{

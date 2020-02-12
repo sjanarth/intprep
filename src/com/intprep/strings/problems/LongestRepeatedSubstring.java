@@ -29,7 +29,24 @@ public class LongestRepeatedSubstring
 	}
 	
 	private static void findLRS (String s)	{
+		String lrs = "";
 		BasicSuffixArray sa = new BasicSuffixArray(s);
+		System.out.println(sa.toString());
+		int[] lcp = sa.getLCPArray();
+		int maxVal = Integer.MIN_VALUE;
+		int maxPos = -1;
+		for (int i = 0; i < lcp.length; i++)	{
+			if (maxVal < lcp[i])	{
+				maxVal = lcp[i];
+				maxPos = i;
+			}
+		}
+		if (maxPos != -1)	{
+			lrs = sa.getSuffix(maxPos).substring(0, maxVal);
+			System.out.println("maxVal = "+maxVal+", maxPos = "+maxPos);
+		}
+		
+		/*
 		int[] LCPs = sa.getLCPArray();
 		int topLCP = -1;
 		int idxTopLCP = -1;
@@ -40,7 +57,9 @@ public class LongestRepeatedSubstring
 			}
 		}
 		String lrs = sa.getSuffix(idxTopLCP).substring(0, topLCP);
+		*/
 		System.out.println("Longest repeated substring ("+s+") = "+lrs);
+		System.out.println();
 	}
 
 	// Space complexity: o(n^2)
