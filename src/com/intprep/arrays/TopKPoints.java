@@ -1,4 +1,4 @@
-package com.intprep.strings.problems;
+package com.intprep.arrays;
 
 import java.util.Arrays;
 

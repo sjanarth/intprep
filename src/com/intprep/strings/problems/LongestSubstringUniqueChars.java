@@ -26,7 +26,7 @@ import java.util.Map;
 public class LongestSubstringUniqueChars 
 {
 	public static void main (String[] args) {
-		findLongestSubstrOfUniqChars ("abba");
+		findLongestSubstrOfUniqChars ("helloworld");
 		findLongestSubstrOfUniqChars ("abc");
 		findLongestSubstrOfUniqChars ("abcabcbb");
 		findLongestSubstrOfUniqChars ("aab");

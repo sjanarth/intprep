@@ -54,8 +54,8 @@ public class RotateMatrix
 				//showMatrix(matrix);
 			}
 		}
-		//System.out.println("After transpose");
-		//showMatrix(matrix);
+		System.out.println("After transpose");
+		showMatrix(matrix);
 	}
 	
 	private static void reverseRows (int[][] matrix)		{

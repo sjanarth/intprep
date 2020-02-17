@@ -1,4 +1,4 @@
-package com.intprep.strings.problems;
+package com.intprep.matrix;
 
 public class SpiralTraverseMatrix 
 {
