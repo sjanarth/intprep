@@ -1,15 +1,18 @@
 package com.intprep.lists;
 
+import com.intprep.lists.core.ListNode;
+
 public class ReverseList 
 {
 	public static void main (String[] args)	{
-		ListNode<Integer> head = getInitList();
-		printList("Input", head);
-		head = reverseList(head);
-		printList("Output", head);
+		ListNode<Integer> head = ListNode.getAsList(new Integer[] {1,2,6,3,4,5,6});
+		ListNode.show("Input", head);
+		ListNode.show("Output-Iterative", reverseIterative(head));
+		head = ListNode.getAsList(new Integer[] {1,2,6,3,4,5,6});
+		ListNode.show("Output-Recursive", reverseRecursive(head));
 	}
 	
-	private static ListNode<Integer> reverseList(ListNode<Integer> head)	{
+	private static ListNode<Integer> reverseIterative(ListNode<Integer> head)	{
 		ListNode<Integer> prev = null, cur = head;
 		while (cur != null)	{
 			ListNode<Integer> saved = cur.next;
@@ -20,24 +23,11 @@ public class ReverseList
 		return prev;
 	}
 	
-	private static ListNode<Integer> getInitList()	{
-		ListNode<Integer> head = new ListNode<>(1);
-		head.next = new ListNode<>(2);
-		head.next.next = new ListNode<>(6);
-		head.next.next.next = new ListNode<>(3);
-		head.next.next.next.next = new ListNode<>(4);
-		head.next.next.next.next.next = new ListNode<>(5);
-		head.next.next.next.next.next.next = new ListNode<>(6);
-		return head;
-	}
-	
-	private static void printList(String s, ListNode<Integer> head) {
-		System.out.print(s+": {"+head.value);
-		ListNode<Integer> cur = head.next;
-		while(cur != null) {
-			System.out.print("->"+cur.value);
-			cur = cur.next;
-		}
-		System.out.println("}");
+	public static ListNode<Integer> reverseRecursive (ListNode<Integer> list)	{
+		if (list == null || list.next == null) return list;
+		ListNode<Integer> node = reverseRecursive(list.next);
+		list.next.next = list;
+		list.next = null;
+		return node;
 	}
 }

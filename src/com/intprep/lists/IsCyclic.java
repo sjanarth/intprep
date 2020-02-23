@@ -1,5 +1,7 @@
 package com.intprep.lists;
 
+import com.intprep.lists.core.ListNode;
+
 public class IsCyclic 
 {
 	public static void main (String[] args)	{
