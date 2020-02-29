@@ -95,9 +95,13 @@ public class RotatedSortedArrays
 	private static void reverse (int[] arr, int start, int end)	{
 		int N = end-start;
 		for (int i = start; i <= start+N/2; i++)	{
-			int tmp = arr[i];
-			arr[i] = arr[start+end-i];
-			arr[start+end-i] = tmp;
+			swap(arr, i, start+end-i);
 		}
+	}
+	
+	private static void swap (int[] input, int i, int j)	{
+		int t = input[i];
+		input[i] = input[j];
+		input[j] = t;
 	}
 }

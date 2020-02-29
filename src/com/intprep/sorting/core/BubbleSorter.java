@@ -5,13 +5,9 @@ public class BubbleSorter extends AbstractSorter
 	@Override	
 	public int[] sort (int[] input)	{
 		for (int i = input.length-1; i >= 0; i--)	{
-			int max = input[i];
-			for (int j = 0; j < i; j++)	{
-				if (max < input[j])	{
-					max = input[j];
-					input[j] = input[i];
-					input[i] = max;
-				}
+			for (int j = i-1; j >= 0; j--)	{
+				if (input[i] < input[j])	
+					swap(input, i, j);
 			}
 			printArray("", input);
 		}

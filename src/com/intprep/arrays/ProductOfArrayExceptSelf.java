@@ -18,6 +18,7 @@ public class ProductOfArrayExceptSelf extends AbstractArraysProblem
 		for (int i = arr.length-1; i >= 0; i--)	{
 			prod[i] = prod[i] * right;
 			right = arr[i] * right;
+			printArray ("i="+i, prod);
 		}
 		printArray("Prod", prod);
 	}

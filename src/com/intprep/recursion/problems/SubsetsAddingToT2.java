@@ -14,7 +14,7 @@ public class SubsetsAddingToT2
 		findSubsetsAddingToT (input, t, all, new ArrayList<Integer>(), 0);
 		for (List<Integer> sub : all) {
 			System.out.println(sub.toString());
-		}
+		}    	
 	}
 	
 	private static void findSubsetsAddingToT (int[] input, int t, List<List<Integer>> all, List<Integer> current, int start)	{
